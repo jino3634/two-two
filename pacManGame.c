@@ -10,6 +10,8 @@
 #define UP 72                          //1-3
 #define DOWN 80                     //1-4
 
+typedef enum {false, true}bool;
+
 void gotoxy(int x, int y);           //1-5
 void setmap();                        //1-6
 bool move(char ch);                //1-7
