@@ -10,17 +10,22 @@
 #define UP 72                          //1-3
 #define DOWN 80                     //1-4
 
-typedef enum {false, true}bool;
+typedef enum {false, true}bool;//c에서도 활용 가능하도록 typedef사용.
 
 void gotoxy(int x, int y);           //1-5
 void setmap();                        //1-6
 bool move(char ch);                //1-7
 
+void changeRode(int map[][25], int x, int y);//2016 - 11- 22 한진오 미완성
+
+
 char startx = 0;                        //1-8
 char starty = 0;                        //1-9
+/*
 char endx = 0;                         //1-10
 char endy = 0;                         //1-11
-
+기존의 미로게임의 종료점 -> 먹이 카운터 정수로 수정*/
+int food=1;//스테이지별 등으로 처리 가능(food1, 2, 3등)
 									   //1-13
 
 char map[25][25] =
@@ -48,7 +53,7 @@ char map[25][25] =
 	{ 1,0,1,0,1,1,1,0,1,0,1,1,0,1,1,1,0,0,0,1,0,1,0,1,1 },
 	{ 1,0,1,0,0,0,0,0,1,0,0,1,0,0,0,1,1,1,0,1,0,1,0,0,1 },
 	{ 1,0,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0,0,0,1,0,1,1,0,1 },
-	{ 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,1 },
+	{ 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1 },
 	{ 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 }
 };
 
@@ -77,15 +82,23 @@ void main()
 
 /******************3번*********************/
 
-bool move(char ch)
+bool move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 {
 	switch (ch)
 	{
 	case LEFT:                                  //3-1
-		if (map[starty][startx - 1] != 1)         //3-2
-		{
-			printf(" ");                                    //3-3
-			startx--;                //3-4
+		if (map[starty][startx - 1] != 1)//이동 하는 방향이 벽이 아닌경우     
+		{	
+			printf(" ");//좌표를 이동하기 전에 현재의 ◎를 지워줍니다.
+			startx--;
+			
+			//changeRode(map, starty, startx);
+			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
+			{
+				food++;//먹이 먹은갯수 1 추가
+				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
+			}  
+			      
 		}
 		break;
 	case RIGHT:
@@ -93,6 +106,11 @@ bool move(char ch)
 		{
 			printf(" ");
 			startx++;
+			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
+			{
+				food++;//먹이 먹은갯수 1 추가
+				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
+			}
 		}
 		break;
 	case UP:
@@ -100,6 +118,11 @@ bool move(char ch)
 		{
 			printf(" ");
 			starty--;
+			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
+			{
+				food++;//먹이 먹은갯수 1 추가
+				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
+			}
 		}
 		break;
 	case DOWN:
@@ -107,13 +130,24 @@ bool move(char ch)
 		{
 			printf(" ");
 			starty++;
+			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
+			{
+				food++;//먹이 먹은갯수 1 추가
+				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
+			}
 		}
 		break;
 	}
+	gotoxy(30, 25);
+	printf("%d", food);
+	
 	gotoxy(startx * 2, starty);                                    //3-5
 	printf("◎");                                                     //3-6
 	gotoxy(startx * 2, starty);                                    //3-7
-	if (map[startx][starty] == map[endx][endy])      //3-8
+	
+	
+
+	if (food ==999)      //3-8 게임 종료 조건, 먹이를 다 먹을때
 	{
 		return true;
 	}
@@ -139,7 +173,7 @@ void setmap()
 			switch (ch)                                                                        //4-3
 			{
 			case 0:
-				printf("  ");
+				printf("·");
 				break;
 			case 1:
 				printf("■");
@@ -149,11 +183,13 @@ void setmap()
 				startx = i;
 				starty = j;
 				break;
-			case 3:
-				printf("★");
+			//case 3:
+			//	printf("  ");
+				/*
 				endx = i;
 				endy = j;
-				break;
+				기존 미로게임의 엔드포인트*/
+			//	break;
 			}
 		}
 
@@ -172,7 +208,14 @@ void gotoxy(int x, int y)
 }
 /*******************************************/
 
-
+void changeRode(int map[][25], int y, int x)
+{
+	if ((*(*map + y) + x) == 0)//현재 위치에 먹이가 있었던경우
+	{
+		food++;//먹이 먹은갯수 1 추가
+		map[y][x] = 3;//먹이를 먹어, 빈길로 처리
+	}
+}
 /*
 
 1번은 사용하는 상수 / 변수 / 함수들을 정의합니다.
