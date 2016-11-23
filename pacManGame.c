@@ -87,25 +87,26 @@ bool move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	switch (ch)
 	{
 	case LEFT:                                  //3-1
-		if (map[starty][startx - 1] != 1)//이동 하는 방향이 벽이 아닌경우     
-		{	
-			printf(" ");//좌표를 이동하기 전에 현재의 ◎를 지워줍니다.
-			startx--;
-			
-			//changeRode(map, starty, startx);
-			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
+			if (map[starty][startx - 1] != 1)//이동 하는 방향이 벽이 아닌경우     
 			{
-				food++;//먹이 먹은갯수 1 추가
-				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
-			}  
-			      
-		}
+				printf(" ");//좌표를 이동하기 전에 현재의 ◎를 지워줍니다.
+				startx--;
+
+				//changeRode(map, starty, startx);
+				if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
+				{
+					food++;//먹이 먹은갯수 1 추가
+					map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
+				}  
+			}
 		break;
 	case RIGHT:
 		if (map[starty][startx + 1] != 1)
 		{
 			printf(" ");
 			startx++;
+			//changeRode(map, starty, startx);
+			
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
 				food++;//먹이 먹은갯수 1 추가
@@ -118,6 +119,7 @@ bool move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 		{
 			printf(" ");
 			starty--;
+			//changeRode(map, starty, startx);
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
 				food++;//먹이 먹은갯수 1 추가
@@ -130,6 +132,7 @@ bool move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 		{
 			printf(" ");
 			starty++;
+			//changeRode(map, starty, startx);
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
 				food++;//먹이 먹은갯수 1 추가
