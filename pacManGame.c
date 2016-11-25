@@ -17,7 +17,7 @@ void setmap();                        //1-6
 bool move(char ch);                //1-7
 
 void changeRode(int map[][25], int x, int y);//2016 - 11- 22 한진오 미완성
-
+void disappear();
 
 char startx = 0;                        //1-8
 char starty = 0;                        //1-9
@@ -31,7 +31,7 @@ int food=1;//스테이지별 등으로 처리 가능(food1, 2, 3등)
 char map[25][25] =
 {
 	{ 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
-	{ 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 },
+	{ 1,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,1 },
 	{ 1,0,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,1 },
 	{ 1,0,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,0,1 },
 	{ 1,0,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,0,1 },
@@ -92,6 +92,7 @@ char map[25][25] =
 
 void main()
 {
+	disappear();
 	setmap();                              //2-1
 	while (true)                             //2-2
 	{
@@ -212,8 +213,8 @@ void setmap()
 				break;
 			case 2:
 				printf("◎");
-				startx = i;
-				starty = j;
+				startx = j;
+				starty = i;
 				break;
 			//case 3:
 			//	printf("  ");
@@ -247,6 +248,18 @@ void changeRode(int map[][25], int y, int x)
 		food++;//먹이 먹은갯수 1 추가
 		map[y][x] = 3;//먹이를 먹어, 빈길로 처리
 	}
+}
+
+void disappear() { // goto사용시 깜박이는 콘솔의 커서 제거, 참고문헌 http://tip.daum.net/question/39372106
+	HANDLE hConsole; // 콘솔 핸들
+	CONSOLE_CURSOR_INFO ConsoleCursor; // 콘솔커서 정보 구조체
+
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // 핸들을 구하고
+
+	ConsoleCursor.bVisible = 0; // 1 보임 , 0 안보임
+	ConsoleCursor.dwSize = 1; // 커서 사이즈
+
+	SetConsoleCursorInfo(hConsole, &ConsoleCursor); // 설정
 }
 /*
 
