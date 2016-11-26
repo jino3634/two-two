@@ -92,11 +92,16 @@ char map[25][25] =
 
 void main()
 {
+	int key = 1;//초기화를 안하면 if문에서 에러가 나므로, 아무 값이나 초기화.
 	disappear();
 	setmap();                              //2-1
 	while (true)                             //2-2
 	{
-		if (move(getch()))                  //2-3
+		
+		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
+			key = _getch();//키를 입력 받음. 
+		
+		if (move(key))                  //2-3
 		{
 			break;
 		}
@@ -178,7 +183,7 @@ bool move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	printf("◎");                                                     //3-6
 	gotoxy(startx * 2, starty);                                    //3-7
 	
-	
+	Sleep(100);//움직이는 속도
 
 	if (food ==999)      //3-8 게임 종료 조건, 먹이를 다 먹을때
 	{
