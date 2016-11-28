@@ -4,53 +4,7 @@
 void gotoxy(int x, int y);
 void printTitle();
 
-/*void printTitle() {//***2012244063 한진오***
-	int color[7] = { 12, 4, 14, 10, 9, 1, 13 };//색상  ->http://tmong.tistory.com/entry/C-setcolor-1
-	static int i;//후훗,, 고급기능인 스태틱변수
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), i);
 
-	int x = 8, y = 5;
-	gotoxy(x, y); y += 1;
-	printf("│        │  │    ────── │    │");
-	gotoxy(x, y); y += 1;
-	printf("├────┤  │      │    │ ─┤    │");
-	gotoxy(x, y); y += 1;
-	printf("│        │─┤     ↙↘  ↙↘  │    │");
-	gotoxy(x, y); y += 1;
-	printf("│        │  │   ↙    ↙    ↘│    │");
-	gotoxy(x, y); y += 1;
-	printf("└────┘  │                       │");
-	gotoxy(x, y); y += 1;
-	printf("              │      ──────┐   │");
-	gotoxy(x, y); y += 1;
-	printf("   │                             │   │");
-	gotoxy(x, y); y += 1;
-	printf("   │                             │     ");
-	gotoxy(x, y); y += 1;
-	printf("   └──────                 │   ●");
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-	x += 50;  y = 5;
-	gotoxy(x, y); y += 1;
-	printf("─────┐ │       ───      │   ───┐   │");
-	gotoxy(x, y); y += 1;
-	printf("          │ │     ↙      ↖    │         │ ─┤");
-	gotoxy(x, y); y += 1;
-	printf("         ↙  │    │        │ ─┤   ┌──┘   │");
-	gotoxy(x, y); y += 1;
-	printf("       ↙    │    │        │   │   │       ─┤");
-	gotoxy(x, y); y += 1;
-	printf("     ↙      │     ↘      ↗    │   └───   │");
-	gotoxy(x, y); y += 1;
-	printf("   ↙        │       ───      │              │");
-	gotoxy(x, y); y += 1;
-	printf(" ↙          │         ─────┐      ────┐");
-	gotoxy(x, y); y += 1;
-	printf("             │                   │              │");
-	gotoxy(x, y); y += 1;
-	printf("             │                   │              │");
-
-	i = (i % 7) + 1;
-}*/
 
 int main(void)
 {
