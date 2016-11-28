@@ -19,6 +19,7 @@ COORD Cur;
 void setmap();                        //1-6
 int move(char ch);                //1-7 게임의 진행도(게임 클리어, 게임 오버, 게임 진행중을 반환 각각 1,2,3)
 void enemy1Move();
+void rank();	//랭크 시스템
 
 void changeRode(int map[][25], int x, int y);//2016 - 11- 22 한진오 미완성
 void disappear();
@@ -862,6 +863,10 @@ COORD getXY() {
 	Cur.X = a.dwCursorPosition.X;
 	Cur.Y = a.dwCursorPosition.Y;
 	return Cur;
+}
+
+void rank() {
+
 }
 /*
 
