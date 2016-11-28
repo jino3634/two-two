@@ -232,19 +232,15 @@ char map[25][25] =
 
 void main()
 {
-<<<<<<< HEAD
-	//Title();
-=======
+
 	disappear();// 처음부터 커서를 제거함. 11.28 수정
 	Title();
->>>>>>> de81e536a9e2f228ce694d144d639c397bfb40af
 	
 	system("mode con:cols=130 lines=53");
 	int stage = 1;
 	int state=3;
 	int key = 1;//초기화를 안하면 if문에서 에러가 나므로, 아무 값이나 초기화.
-<<<<<<< HEAD
-	disappear();
+
 	map = &map_1;
 	
 	//gotoxy(3, 3);
@@ -255,10 +251,6 @@ void main()
 	
 	setmap();  //2-1
 	
-=======
-	
-	setmap();                              //2-1
->>>>>>> de81e536a9e2f228ce694d144d639c397bfb40af
 	while (true)                             //2-2
 	{
 		//gotoxy(30, 27);
@@ -326,13 +318,8 @@ void main()
 			break;// 탈출
 		}
 	}
-<<<<<<< HEAD
-	
-	while (getch() != 27)                   //2-4
-=======
-	printf("게임오버");
+
 	while (_getch() != 27)                   //2-4
->>>>>>> de81e536a9e2f228ce694d144d639c397bfb40af
 	{
 		gotoxy(0, 26);                            //2-5
 		printf("종료는 esc\n");
@@ -1197,11 +1184,9 @@ void selectGameMenu() // 메뉴 선택 함수
 
 void Title()
 {
-<<<<<<< HEAD
-	system("mode con:cols=130 lines=53");
-=======
+
 	system("mode con:cols=130 lines=43"); // 타이틀화면에서만 130x43 크기로 지정. (깔끔해보이도록 조정)
->>>>>>> de81e536a9e2f228ce694d144d639c397bfb40af
+
 	system("title 봉재의 햄버거 여행기");
 	PlaySound(TEXT("payday.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	//사운드 파일 위치, SND_ASYNC, SND_LOOP 세가지가 제일 중요
