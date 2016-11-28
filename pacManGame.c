@@ -2,8 +2,10 @@
 #include<stdio.h>
 #include<conio.h>
 #include<windows.h>
+#include <mmsystem.h>
 
 /*******************1번********************/
+#pragma comment(lib,"winmm.lib") // playsound함수를 사용하기 위해 #pragma매크로 사용 -> lib파일 읽어들이는데 사용.
 
 #define LEFT 75                       //1-1
 #define RIGHT 77                     //1-2
@@ -24,6 +26,8 @@ void changeRode(int map[][25], int x, int y);//2016 - 11- 22 한진오 미완성
 void disappear();
 
 void printTitle();
+void gameMenu();
+void selectGameMenu();
 void Title();
 
 char startx = 0;                        //1-8
@@ -225,11 +229,12 @@ char map[25][25] =
 
 void main()
 {
+	disappear();// 처음부터 커서를 제거함. 11.28 수정
 	Title();
 	
 	int state=3;
 	int key = 1;//초기화를 안하면 if문에서 에러가 나므로, 아무 값이나 초기화.
-	disappear();
+	
 	setmap();                              //2-1
 	while (true)                             //2-2
 	{
@@ -263,7 +268,7 @@ void main()
 		}
 	}
 	printf("게임오버");
-	while (getch() != 27)                   //2-4
+	while (_getch() != 27)                   //2-4
 	{
 		gotoxy(0, 26);                            //2-5
 		printf("종료는 esc\n");
@@ -1073,14 +1078,50 @@ void printTitle()
 	printf("        I##=`           I.");
 }
 
+void gameMenu() // 게임 메뉴
+{
+	int x = 18, y = 20;
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	gotoxy(x, y);
+	printf("■□□□■■■□□■■□□■■");
+	gotoxy(x, y+1);
+	printf("■■■□★■□□  ♪■■□□■");
+	gotoxy(x, y + 2);
+	printf("□□□■Bongjae Travel□■☆■");
+	gotoxy(x, y + 3);
+	printf("■■□■■햄□버■거□□■□□");
+	gotoxy(x, y + 4);
+	printf("■■★■□□□■■■□■■□□");
+
+	gotoxy(x + 7, y + 8);
+	printf("1. 여행 START");
+	gotoxy(x + 7, y + 10);
+	printf("2. 여행이어하기");
+	gotoxy(x + 7, y + 12);
+	printf("3. 여행점수확인");
+	gotoxy(x + 7, y + 14);
+	printf("4. The End");
+}
+
+void selectGameMenu() // 메뉴 선택 함수
+{
+
+}
+
 void Title()
 {
-	system("mode con:cols=130 lines=51");
+	system("mode con:cols=130 lines=43"); // 타이틀화면에서만 130x43 크기로 지정. (깔끔해보이도록 조정)
 	system("title 봉재의 햄버거 여행기");
+	PlaySound(TEXT("payday.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+	//사운드 파일 위치, SND_ASYNC, SND_LOOP 세가지가 제일 중요
+	//SND_ASYNC : 재생하면서 다음코드 실행
+	//SND_LOOP : 반복재생
 	int key;
 	while (1)
 	{
 		printTitle();
+		gameMenu();
 		Sleep(100);
 		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
 		{
