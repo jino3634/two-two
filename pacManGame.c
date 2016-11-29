@@ -24,7 +24,7 @@ void disappear();
 
 void printTitle();
 void gameMenu();
-void selectGameMenu();
+void gameMenuSelector();
 void Title();
 
 char(*map)[50];
@@ -954,10 +954,11 @@ void disappear() { // goto사용시 깜박이는 콘솔의 커서 제거, 참고문헌 http://tip.
 
 void printTitle()
 {
-	int color[2] = { 14,15 };//색상  ->http://tmong.tistory.com/entry/C-setcolor-1
+	/*int color[2] = { 14,15 };//색상  ->http://tmong.tistory.com/entry/C-setcolor-1 //while문으로 깜박거리지만 메뉴선택에서 while문이 걸려 빤짝거리지않음. 주석처리. / 11. 29. 수정
 	static int i;//후훗,, 고급기능인 스태틱변수
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[i]);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[i]);*/
 
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 	int x = 5, y = 5; // 팩맨 캐릭터 텍스쳐
 	gotoxy(x, y); y += 1;
 	printf("       ■■■■■■");
@@ -979,7 +980,7 @@ void printTitle()
 	printf("    ■■■■■■■■■");
 	gotoxy(x, y); y += 1;
 	printf("       ■■■■■■");
-	i = (i + 1) % 2;
+	//i = (i + 1) % 2; //while문으로 깜박거리지만 메뉴선택에서 while문이 걸려 빤짝거리지않음. 주석처리. / 11. 29. 수정
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); // 햄버거 텍스쳐
 	x = 32;  y = 4;
@@ -1240,11 +1241,249 @@ void gameMenu() // 게임 메뉴
 	printf("3. 여행점수확인");
 	gotoxy(x + 7, y + 14);
 	printf("4. The End");
+	gotoxy(x + 0, y + 17);
+	printf("메뉴선택 후 SPACE바를 누르세요.");
 }
 
-void selectGameMenu() // 메뉴 선택 함수
+void gameMenuSelector() // 게임 메뉴 선택
 {
+	int cursorPoint = 1;
+	int select = 0;
 
+	while (1)
+	{
+		if (cursorPoint == 1)
+		{
+			gotoxy(22, 28); printf("◀");
+			gotoxy(41, 28); printf("▶");
+			system("pause>null");
+			if (GetAsyncKeyState(VK_DOWN) & 0x0001)
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+				int x = 5, y = 5; // 팩맨(입닫음) 캐릭터 텍스쳐
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				gotoxy(22, 28); printf(" ");
+				gotoxy(41, 28); printf(" ");
+				cursorPoint++;
+			}
+			if (GetAsyncKeyState(VK_SPACE))
+			{
+				select = cursorPoint;
+				cursorPoint = 0;
+				//system("cls");
+				
+				return;
+			}
+		}
+		else if (cursorPoint == 2)
+		{
+			gotoxy(22, 30); printf("◀");
+			gotoxy(41, 30); printf("▶");
+			system("pause>null");
+			if (GetAsyncKeyState(VK_DOWN) & 0x0001)
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+				int x = 5, y = 5; // 팩맨 캐릭터 텍스쳐
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■　　　");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■　　　　　");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■　　　　　");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■　　　");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				gotoxy(22, 30); printf(" ");
+				gotoxy(41, 30); printf(" ");
+				cursorPoint++;
+			}
+			if (GetAsyncKeyState(VK_UP) & 0x0001)
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+				int x = 5, y = 5; // 팩맨 캐릭터 텍스쳐
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■　　　");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■　　　　　");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■　　　　　");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■　　　");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				gotoxy(22, 30); printf(" ");
+				gotoxy(41, 30); printf(" ");
+				cursorPoint--;
+			}
+			if (GetAsyncKeyState(VK_SPACE))
+			{
+				select = cursorPoint;
+				cursorPoint = 0;
+				system("cls");
+				
+				return;
+			}
+		}
+		else if (cursorPoint == 3)
+		{
+			gotoxy(22, 32); printf("◀");
+			gotoxy(41, 32); printf("▶");
+			system("pause>null");
+			if (GetAsyncKeyState(VK_DOWN) & 0x0001)
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+				int x = 5, y = 5; // 팩맨(입닫음) 캐릭터 텍스쳐
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				gotoxy(22, 32); printf(" ");
+				gotoxy(41, 32); printf(" ");
+				cursorPoint++;
+			}
+			if (GetAsyncKeyState(VK_UP) & 0x0001)
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+				int x = 5, y = 5; // 팩맨(입닫음) 캐릭터 텍스쳐
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				gotoxy(22, 32); printf(" ");
+				gotoxy(41, 32); printf(" ");
+				cursorPoint--;
+			}
+			if (GetAsyncKeyState(VK_SPACE))
+			{
+				select = cursorPoint;
+				cursorPoint = 0;
+				system("cls");
+
+				return;
+			}
+		}
+		else if (cursorPoint == 4)
+		{
+			gotoxy(22, 34); printf("◀");
+			gotoxy(41, 34); printf("▶");
+			system("pause>null");
+			if (GetAsyncKeyState(VK_UP) & 0x0001)
+			{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+				int x = 5, y = 5; // 팩맨 캐릭터 텍스쳐
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■　　　");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■　　　　　");
+				gotoxy(x, y); y += 1;
+				printf("■■■■■■■■　　　　　");
+				gotoxy(x, y); y += 1;
+				printf(" ■■■■■■■■■　　　");
+				gotoxy(x, y); y += 1;
+				printf("  ■■■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("    ■■■■■■■■■");
+				gotoxy(x, y); y += 1;
+				printf("       ■■■■■■");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				gotoxy(22, 34); printf(" ");
+				gotoxy(41, 34); printf(" ");
+				cursorPoint--;
+			}
+			if (GetAsyncKeyState(VK_SPACE))
+			{
+				cursorPoint = 0;
+				system("cls");
+				gotoxy(35, 15);
+				printf("--프로그램을 종료합니다--\n");
+				Sleep(2000);
+				exit(1);
+			}
+		}
+	}
 }
 
 void Title()
@@ -1262,6 +1501,8 @@ void Title()
 	{
 		printTitle();
 		gameMenu();
+		gameMenuSelector();
+
 		Sleep(100);
 		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
 		{
