@@ -35,6 +35,7 @@ void printTitle();
 void gameMenu();
 void gameMenuSelector();
 void Title();
+void gameStart();
 void goRank(int score);
 void printRank();
 
@@ -235,6 +236,17 @@ void main()
 	disappear();// 처음부터 커서를 제거함. 11.28 수정
 	Title();
 
+	
+	
+	
+	//main();
+}
+
+/*******************************************/
+
+/******************3번*********************/
+void gameStart()
+{
 	system("mode con:cols=130 lines=53");
 	initialization();//이하 맵 셋팅;
 
@@ -287,7 +299,7 @@ void main()
 
 		state = move(key);//움직이며 상태 변수를 반환.
 		Sleep(100);
-		
+
 		if (state == 1)
 		{
 			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
@@ -319,7 +331,7 @@ void main()
 			break;// 탈출
 		}
 
-		
+
 		//--------------------------------------------------------------------------------------------------유저의 움직임을 3번으로 설정함 ㅠㅠ//(스테이지별로 if문 걸어서 난이도 설정 가능..)
 		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
 			key = _getch();//키를 입력 받음. 
@@ -395,25 +407,23 @@ void main()
 			break;// 탈출
 		}
 
-		
+
 	}
 	system("cls");
 	gotoxy(50, 20);
 	goRank(score);
 	score = 0;
-
-	while (_getch() != 32)                   //2-4
+	while (key != 32)                   //2-4
 	{
+		key = _getch();
 		//gotoxy(101   , 26);    
 		gotoxy(50, 22);//2-5
 		printf("스페이스바를 누르면 메뉴로\n");
 	}
-	main();
+
+
+
 }
-
-/*******************************************/
-
-/******************3번*********************/
 
 int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 {
@@ -1322,8 +1332,9 @@ void gameMenuSelector() // 게임 메뉴 선택
 			{
 				select = cursorPoint;
 				cursorPoint = 0;
-				//system("cls");
-				return;
+				system("cls");
+				gameStart();
+			//	Title();
 			}
 		}
 		else if (cursorPoint == 2)
