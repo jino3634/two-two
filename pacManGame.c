@@ -275,6 +275,12 @@ void gameStart()
 				}
 			}
 		}
+
+		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
+		{
+			printf("게임오버");
+			break;// 탈출
+		}
 		//--------------------------------------------------------------------------------------------------유령의 움직임을 2번으로 설정함 //(스테이지별로 if문 걸어서 난이도 설정 가능..)
 		enemyMove(&u1x, &u1y);
 
@@ -291,6 +297,12 @@ void gameStart()
 					enemyMove(&u4x, &u4y);
 				}
 			}
+		}
+
+		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
+		{
+			printf("게임오버");
+			break;// 탈출
 		}
 
 
@@ -1295,7 +1307,7 @@ void gameMenuSelector() // 게임 메뉴 선택
 	while (1)
 	{
 		if (cursorPoint == 1)
-		{`
+		{
 			gotoxy(22, 28); printf("◀");
 			gotoxy(41, 28); printf("▶");
 			system("pause>null");
