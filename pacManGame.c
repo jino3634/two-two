@@ -23,6 +23,7 @@ void enemyMove(char *x, char *y);
 void disappear();
 
 void save(int stage);
+int load();
 
 void printTitle();
 void gameMenu();
