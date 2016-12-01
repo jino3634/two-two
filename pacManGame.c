@@ -1,7 +1,8 @@
 //출처 : http://breadshuttle.tistory.com/entry/C%EC%96%B8%EC%96%B4-%EC%8B%AC%EC%8B%AC%ED%92%80%EC%9D%B4%EA%B2%8C%EC%9E%84%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EA%B8%B02%ED%83%84
-#include<stdio.h>
-#include<conio.h>
-#include<windows.h>
+#include <stdio.h>
+#include <conio.h>
+#include <time.h>
+#include <windows.h>
 #include <mmsystem.h>
 
 #pragma comment(lib,"winmm.lib") // playsound함수를 사용하기 위해 #pragma매크로 사용 -> lib파일 읽어들이는데 사용.
@@ -11,6 +12,13 @@
 #define UP 72                          
 #define DOWN 80                    
 
+typedef struct player
+{
+	int x;
+	int y;//좌표
+	clock_t SG;
+	clock_t FG;
+}Player;
 
 void gotoxy(int x, int y);          
 COORD getXY();
@@ -23,9 +31,12 @@ void enemyMove(char *x, char *y);
 void disappear();
 
 void printTitle();
-void gameMenu();
-void gameMenuSelector();
+void gameMenu(Player *p);
+void gameMenuSelector(Player *p);
 void Title();
+void Stage();
+void Intro1();
+void Intro1_1();
 
 char(*map)[50];
 int enemyCount = 0;
@@ -219,186 +230,12 @@ char map_3[50][50] =
 
 void main()
 {
+	Player p = { 10, 3 };
 
 	disappear();// 처음부터 커서를 제거함. 11.28 수정
 	Title();
 
-	system("mode con:cols=130 lines=53");
-
-	int state = 3;
-	int key = 1;//초기화를 안하면 if문에서 에러가 나므로, 아무 값이나 초기화.
-
-	map = &map_1;
-
-
-
-
-	setmap();  //2-1
-
-	while (1)                             //2-2
-	{
-
-		enemyMove(&u1x, &u1y);
-
-
-		if (enemyCount >= 2)//유령의 갯수를 파악하여 움직임..
-		{
-			enemyMove(&u2x, &u2y);
-			if (enemyCount >= 3)
-			{
-				enemyMove(&u3x, &u3y);
-				if (enemyCount >= 4)
-				{
-					enemyMove(&u4x, &u4y);
-				}
-			}
-		}
-		//--------------------------------------------------------------------------------------------------유령의 움직임을 2번으로 설정함 //(스테이지별로 if문 걸어서 난이도 설정 가능..)
-		enemyMove(&u1x, &u1y);
-
-		//printf(" %d %d", u1x, u1y);
-
-		if (enemyCount >= 2)//유령의 갯수를 파악하여 움직임..
-		{
-			enemyMove(&u2x, &u2y);
-			if (enemyCount >= 3)
-			{
-				enemyMove(&u3x, &u3y);
-				if (enemyCount >= 4)
-				{
-					enemyMove(&u4x, &u4y);
-				}
-			}
-		}
-
-
-		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
-			key = _getch();//키를 입력 받음. 
-
-		state = move(key);//움직이며 상태 변수를 반환.
-		Sleep(100);
-		
-		if (state == 1)
-		{
-			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
-			Sleep(3000);
-
-			initialization();//이하 맵 셋팅;
-			stage++;
-			if (stage == 2)
-			{
-				map = &map_2;
-				setmap();
-			}
-			else if (stage == 3)
-			{
-				map = &map_3;
-				setmap();
-			}
-
-			else if (stage == 4)
-			{
-				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
-				break;//탈출
-			}
-
-		}
-		else if (state == 2)
-		{
-			printf("게임오버");
-			break;// 탈출
-		}
-
-		
-		//--------------------------------------------------------------------------------------------------유저의 움직임을 3번으로 설정함 ㅠㅠ//(스테이지별로 if문 걸어서 난이도 설정 가능..)
-		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
-			key = _getch();//키를 입력 받음. 
-		state = move(key);//움직이며 상태 변수를 반환.
-
-		Sleep(100);
-
-		if (state == 1)
-		{
-			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
-			Sleep(3000);
-
-			initialization();//이하 맵 셋팅;
-			stage++;
-			if (stage == 2)
-			{
-				map = &map_2;
-				setmap();
-			}
-			else if (stage == 3)
-			{
-				map = &map_3;
-				setmap();
-			}
-
-			else if (stage == 4)
-			{
-				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
-				break;//탈출
-			}
-
-		}
-		else if (state == 2)
-		{
-			printf("게임오버");
-			break;// 탈출
-		}
-		//--------------------------------------------------------------------------------------------------유저의 움직임을 3번으로 설정함 ㅠㅠ//(스테이지별로 if문 걸어서 난이도 설정 가능..)
-		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
-			key = _getch();//키를 입력 받음. 
-		state = move(key);//움직이며 상태 변수를 반환.
-
-		Sleep(100);
-
-		if (state == 1)
-		{
-			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
-			Sleep(3000);
-
-			initialization();//이하 맵 셋팅;
-			stage++;
-			if (stage == 2)
-			{
-				map = &map_2;
-				setmap();
-			}
-			else if (stage == 3)
-			{
-				map = &map_3;
-				setmap();
-			}
-
-			else if (stage == 4)
-			{
-				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
-				break;//탈출
-			}
-
-		}
-		else if (state == 2)
-		{
-			printf("게임오버");
-			break;// 탈출
-		}
-
-		
-
-	}
-
-	while (_getch() != 27)                   //2-4
-	{
-		gotoxy(110, 26);                            //2-5
-		printf("종료는 esc\n");
-	}
 }
-
-/*******************************************/
-
-/******************3번*********************/
 
 int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 {
@@ -455,14 +292,14 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
-				food++;//먹이 먹은갯수 1 추가
+				food++;//먹이 먹은 개수 1 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
 		}
 		break;
 	}
 	gotoxy(110, 3);
-	printf("food : %d", food);//푸드 겟수 -> 감소하는 식의 카운터도 가능
+	printf("남은 재료 : %d", food);//푸드 개수 -> 감소하는 식의 카운터도 가능
 
 	
 
@@ -831,14 +668,6 @@ void enemyMove(char *x, char *y)//8방으로..
 
 }
 
-
-
-
-
-/*******************************************/
-
-/******************4번**********************/
-
 void initialization()
 {
 	system("cls");
@@ -928,9 +757,6 @@ void setmap()
 	}
 	gotoxy(startx * 2, starty);                                                            //4-4
 }
-/*******************************************/
-
-/******************5번*********************/
 
 void gotoxy(int x, int y)
 {
@@ -1217,7 +1043,7 @@ void printTitle()
 	printf("        I##=`           I.");
 }
 
-void gameMenu() // 게임 메뉴
+void gameMenu(Player *p) // 게임 메뉴
 {
 	int x = 18, y = 20;
 
@@ -1243,9 +1069,10 @@ void gameMenu() // 게임 메뉴
 	printf("4. The End");
 	gotoxy(x + 0, y + 17);
 	printf("메뉴선택 후 SPACE바를 누르세요.");
+	gameMenuSelector(p);
 }
 
-void gameMenuSelector() // 게임 메뉴 선택
+void gameMenuSelector(Player *p) // 게임 메뉴 선택
 {
 	int cursorPoint = 1;
 	int select = 0;
@@ -1290,8 +1117,8 @@ void gameMenuSelector() // 게임 메뉴 선택
 			{
 				select = cursorPoint;
 				cursorPoint = 0;
-				//system("cls");
-				
+				system("cls");
+				Intro1();
 				return;
 			}
 		}
@@ -1488,6 +1315,7 @@ void gameMenuSelector() // 게임 메뉴 선택
 
 void Title()
 {
+	Player p = { 10, 3 };
 
 	system("mode con:cols=130 lines=43"); // 타이틀화면에서만 130x43 크기로 지정. (깔끔해보이도록 조정)
 
@@ -1497,11 +1325,9 @@ void Title()
 	//SND_ASYNC : 재생하면서 다음코드 실행
 	//SND_LOOP : 반복재생
 	int key;
-	while (1)
-	{
+	
 		printTitle();
-		gameMenu();
-		gameMenuSelector();
+		gameMenu(&p);
 
 		Sleep(100);
 		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
@@ -1509,12 +1335,248 @@ void Title()
 			key = _getch();//키를 입력 받음 key에 저장하는 이유는 타이틀 탈출시의 엔터 중복입력 방지 
 			system("cls");//타이틀 지움
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);//색을 흰색을 복구
-			break;
+		}
+}
+
+void Stage()
+{
+	system("mode con:cols=130 lines=53");
+	int state = 3;
+	int key = 1;//초기화를 안하면 if문에서 에러가 나므로, 아무 값이나 초기화.
+
+	map = &map_1;
+
+	setmap();  //2-1
+
+	while (1)                             //2-2
+	{
+
+		enemyMove(&u1x, &u1y);
+
+
+		if (enemyCount >= 2)//유령의 갯수를 파악하여 움직임..
+		{
+			enemyMove(&u2x, &u2y);
+			if (enemyCount >= 3)
+			{
+				enemyMove(&u3x, &u3y);
+				if (enemyCount >= 4)
+				{
+					enemyMove(&u4x, &u4y);
+				}
+			}
+		}
+		//--------------------------------------------------------------------------------------------------유령의 움직임을 2번으로 설정함 //(스테이지별로 if문 걸어서 난이도 설정 가능..)
+		enemyMove(&u1x, &u1y);
+
+		//printf(" %d %d", u1x, u1y);
+
+		if (enemyCount >= 2)//유령의 갯수를 파악하여 움직임..
+		{
+			enemyMove(&u2x, &u2y);
+			if (enemyCount >= 3)
+			{
+				enemyMove(&u3x, &u3y);
+				if (enemyCount >= 4)
+				{
+					enemyMove(&u4x, &u4y);
+				}
+			}
 		}
 
+
+		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
+			key = _getch();//키를 입력 받음. 
+
+		state = move(key);//움직이며 상태 변수를 반환.
+		Sleep(100);
+
+		if (state == 1)
+		{
+			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			Sleep(3000);
+
+			initialization();//이하 맵 셋팅;
+			stage++;
+			if (stage == 2)
+			{
+				map = &map_2;
+				setmap();
+			}
+			else if (stage == 3)
+			{
+				map = &map_3;
+				setmap();
+			}
+
+			else if (stage == 4)
+			{
+				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				break;//탈출
+			}
+
+		}
+		else if (state == 2)
+		{
+			printf("게임오버");
+			break;// 탈출
+		}
+
+
+		//--------------------------------------------------------------------------------------------------유저의 움직임을 3번으로 설정함 ㅠㅠ//(스테이지별로 if문 걸어서 난이도 설정 가능..)
+		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
+			key = _getch();//키를 입력 받음. 
+		state = move(key);//움직이며 상태 변수를 반환.
+
+		Sleep(100);
+
+		if (state == 1)
+		{
+			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			Sleep(3000);
+
+			initialization();//이하 맵 셋팅;
+			stage++;
+			if (stage == 2)
+			{
+				map = &map_2;
+				setmap();
+			}
+			else if (stage == 3)
+			{
+				map = &map_3;
+				setmap();
+			}
+
+			else if (stage == 4)
+			{
+				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				break;//탈출
+			}
+
+		}
+		else if (state == 2)
+		{
+			printf("게임오버");
+			break;// 탈출
+		}
+		//--------------------------------------------------------------------------------------------------유저의 움직임을 3번으로 설정함 ㅠㅠ//(스테이지별로 if문 걸어서 난이도 설정 가능..)
+		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
+			key = _getch();//키를 입력 받음. 
+		state = move(key);//움직이며 상태 변수를 반환.
+
+		Sleep(100);
+
+		if (state == 1)
+		{
+			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			Sleep(3000);
+
+			initialization();//이하 맵 셋팅;
+			stage++;
+			if (stage == 2)
+			{
+				map = &map_2;
+				setmap();
+			}
+			else if (stage == 3)
+			{
+				map = &map_3;
+				setmap();
+			}
+
+			else if (stage == 4)
+			{
+				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				break;//탈출
+			}
+
+		}
+		else if (state == 2)
+		{
+			printf("게임오버");
+			
+			break;// 탈출
+		}
+
+
+
+	}
+
+	while (_getch() != 27)                   //2-4
+	{
+		gotoxy(110, 26);                            //2-5
+		printf("종료는 esc\n");
 	}
 }
 
+void Intro1()
+{
+	int i;
+	int count;
+
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(38, 15);
+	printf("봉재의 햄버거 여행기 1");
+	Sleep(1000);
+	gotoxy(36, 19);
+	printf("XXXX년 XX월 XX일 선문대학교");
+	Sleep(1000);
+	gotoxy(28, 23);
+	printf("봉재: 하암, 아메리카나 햄버거는 질려");
+	Sleep(1000);
+	gotoxy(34, 25);
+	printf("그렇다고 프랜차이즈 버거들은 더 질리고...");
+	Sleep(1000);
+	gotoxy(34, 27);
+	printf("어디 맛... 그래! 내가 세계각지를 다니면서");
+	Sleep(1000);
+	gotoxy(34, 29);
+	printf("가장 맛있는 햄버거를 만드는거야!");
+	gotoxy(50, 33);
+	printf("아무 키나 눌러주세요.");
+	getchar();
+	system("cls");
+	Intro1_1();
+}
+
+void Intro1_1()
+{
+	int i;
+	int count;
+
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(38, 15);
+	printf("봉재의 햄버거 여행기 1");
+	Sleep(1000);
+	gotoxy(36, 19);
+	printf("XXXX년 XX월 XX일 프랑스");
+	Sleep(1000);
+	gotoxy(28, 23);
+	printf("봉재: 여기가 빵으로 유명한 프랑스인가?");
+	Sleep(1000);
+	gotoxy(34, 25);
+	printf("프랑스 각지에 버거빵 재료가 흩어져 있다고 하는데");
+	Sleep(1000);
+	gotoxy(34, 27);
+	printf("버거 도둑들을 피해서 재료를 모으자!!");
+	Sleep(1000);
+	gotoxy(34, 29);
+	printf("프랑스에서 가장 맛있는 버거빵을 만드는거야!");
+	gotoxy(50, 33);
+	printf("아무 키나 눌러주세요.");
+	getchar();
+	system("cls");
+	Stage();
+}
 
 COORD getXY() {
 	COORD Cur;
