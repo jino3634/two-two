@@ -5,12 +5,18 @@
 #include <mmsystem.h>
 
 #pragma comment(lib,"winmm.lib") // playsound함수를 사용하기 위해 #pragma매크로 사용 -> lib파일 읽어들이는데 사용.
-
+//발표 12일 보고서 17일까지
 #define LEFT 75                     
 #define RIGHT 77                     
 #define UP 72                          
 #define DOWN 80                    
 
+typedef struct rank {
+	int rankNum;
+	char name[10];
+	int score;
+	struct rank *next;
+}RANK;
 
 void gotoxy(int x, int y);          
 COORD getXY();
@@ -26,10 +32,13 @@ void printTitle();
 void gameMenu();
 void gameMenuSelector();
 void Title();
+void goRank(int score);
+void printRank();
 
 char(*map)[50];
 int enemyCount = 0;
 int stage = 1;
+int score;
 
 char startx = 0;                       
 char starty = 0;                      
@@ -219,19 +228,17 @@ char map_3[50][50] =
 
 void main()
 {
-
+	
 	disappear();// 처음부터 커서를 제거함. 11.28 수정
 	Title();
 
 	system("mode con:cols=130 lines=53");
+	initialization();//이하 맵 셋팅;
 
 	int state = 3;
 	int key = 1;//초기화를 안하면 if문에서 에러가 나므로, 아무 값이나 초기화.
 
 	map = &map_1;
-
-
-
 
 	setmap();  //2-1
 
@@ -386,14 +393,19 @@ void main()
 		}
 
 		
-
 	}
+	system("cls");
+	gotoxy(50, 20);
+	goRank(score);
+	score = 0;
 
-	while (_getch() != 27)                   //2-4
+	while (_getch() != 32)                   //2-4
 	{
-		gotoxy(110, 26);                            //2-5
-		printf("종료는 esc\n");
+		//gotoxy(101   , 26);    
+		gotoxy(50, 22);//2-5
+		printf("스페이스바를 누르면 메뉴로\n");
 	}
+	main();
 }
 
 /*******************************************/
@@ -416,6 +428,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
 				food++;//먹이 먹은갯수 1 추가
+				score++;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
 		}
@@ -430,6 +443,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
 				food++;//먹이 먹은갯수 1 추가
+				score++;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
 		}
@@ -443,6 +457,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
 				food++;//먹이 먹은갯수 1 추가
+				score++;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
 		}
@@ -456,14 +471,26 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
 				food++;//먹이 먹은갯수 1 추가
+				score++;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
 		}
+		break;//q
+	case 113:
+		printf("게임이 저장되었습니다.");
+		Sleep(1000);
+		main();
+		break;
+
+	case 81://Q
+		printf("게임이 저장되었습니다.");
+		Sleep(1000);
+		main();
 		break;
 	}
 	gotoxy(110, 3);
-	printf("food : %d", food);//푸드 겟수 -> 감소하는 식의 카운터도 가능
-
+	printf("score : %d", score);//점수 출력
+	
 	
 
 	gotoxy(startx * 2, starty);                                    
@@ -858,6 +885,8 @@ void initialization()
 
 	u4x = 0;
 	u4y = 0;
+
+	
 }
 
 void setmap()
@@ -1291,7 +1320,6 @@ void gameMenuSelector() // 게임 메뉴 선택
 				select = cursorPoint;
 				cursorPoint = 0;
 				//system("cls");
-				
 				return;
 			}
 		}
@@ -1435,8 +1463,18 @@ void gameMenuSelector() // 게임 메뉴 선택
 				select = cursorPoint;
 				cursorPoint = 0;
 				system("cls");
-
-				return;
+				printRank();
+				int key=1;
+				while (1)
+				{
+					if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
+					{
+						key = _getch();//키를 입력 받음. (스페이스 중복입력 방지)
+						break;
+					}
+				}
+				system("cls");
+				Title();
 			}
 		}
 		else if (cursorPoint == 4)
@@ -1497,11 +1535,11 @@ void Title()
 	//SND_ASYNC : 재생하면서 다음코드 실행
 	//SND_LOOP : 반복재생
 	int key;
-	while (1)
-	{
+	
 		printTitle();
 		gameMenu();
 		gameMenuSelector();
+
 
 		Sleep(100);
 		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
@@ -1509,12 +1547,195 @@ void Title()
 			key = _getch();//키를 입력 받음 key에 저장하는 이유는 타이틀 탈출시의 엔터 중복입력 방지 
 			system("cls");//타이틀 지움
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);//색을 흰색을 복구
-			break;
+			
 		}
 
-	}
+	
 }
 
+void printRank()//***2012244063 한진오***
+{
+	int x = 50, y = 15;
+	int rank, frank = 2, score, i = 1;
+	char name[10] = { 0, };
+	char a = 0;
+	FILE *fpin = 0;//파일포인터변수의선언
+
+	fpin = fopen("source.txt", "r");
+
+	if (fpin == NULL)//랭크 파일이 없을경우.
+	{
+		gotoxy(x, y);
+		printf("아직 기록되지 않았습니다.");
+		return;
+	}
+	gotoxy(x, y); y = y + 2;
+	printf("rank\tname\tscore\n");
+
+	while (!feof(fpin))//파일의 끝이면 0이 아닌값, 끝이면 0 반환.->http://me.tistory.com/380
+	{
+		fscanf(fpin, "%d %s %d ", &rank, name, &score);
+		gotoxy(x, y); y = y + 2;
+		if (rank != frank)//개행 문자 때문에 마지막 순위가 두번 입력되어, 전번 순위와 같을시 기록이 안되게 함.
+		{
+			printf(" %d\t%s\t%d\n", rank, name, score);
+			frank = rank;
+		}
+		else
+			break;
+
+
+	}
+
+}
+
+void goRank(int score)//***2012244063 한진오***
+{
+
+	int count = 0, i = 0;
+	char name[10] = { 0, };
+
+	printf("영문 5자 이하의 이니셜 입력.");
+
+	scanf("%s", name);
+
+	FILE *fpin = 0, *fpout = 0;//파일포인터변수의선언
+
+
+	fpin = fopen("source.txt", "r");
+
+	if ((fpin == NULL))//파일이 없을 경우, 파일 생성 뒤, 1등 만 기록.
+	{
+		fpout = fopen("source.txt", "w");//make source file
+		fprintf(fpout, "1\t%s\t%d", name, score);
+		fclose(fpout);//파일 닫기 ㅠㅠ
+		return;
+	}
+
+	//---------------------------------------------------여기부터는 기존의 파일 내용(랭크)을, 연결리스트에 저장하는 코드.
+	RANK *list = NULL, *current, *follow, *ee, *empty;
+
+	list = follow = current = (RANK*)malloc(sizeof(RANK));
+	void findException(RANK current);//메모리가 부족할 경우의 예외처리.
+
+
+	while (!feof(fpin))//파일이 끝날때까지 루프. (http://forum.falinux.com/zbxe/?mid=C_LIB&page=8&document_srl=408235 -> 파일의 끝을 알려주는 함수), 
+					   //파일이 처음부터 공백일 수가 없는것이, 첫 1등 처리를 하였기 때문. 고로 따로 예외 처리 안함.
+					   //파일로부터 순위, 이름, 점수를 연결리스트에 저장.
+	{
+		fscanf(fpin, "%d %s %d", &current->rankNum, current->name, &current->score);//파일로부터 순위, 이름, 점수를 불러와, 노드에 저장.
+
+
+		empty = (RANK*)malloc(sizeof(RANK));
+		void findException(RANK empty);//메모리가 부족할 경우의 예외처리.
+
+		current->next = empty;
+
+		ee = follow;
+		follow = current;//마지막으로 입력될 노드를 찾기 위함.
+		current = current->next;//다음 노드에 입력을 준비함, 루프의 마지막일 경우, current는 쓰레기값.
+		i++;
+	}
+	if (i == 1)//1등 뿐일때.
+	{
+		list->next = NULL;
+	}
+	else//랭크에 기록된 사람이 2 이상일때.
+	{
+		free(current);//마지막 빈 노드의 동적메모리 해제.
+		free(follow);//이유는 모르겠으나 쓰레기값임
+		ee->next = NULL;//예외 처리 방지.. 마지막 노드 ee의 next가 NULL로 초기화가 안되면, 제어문에서 불편함.
+	}
+
+	//-------------------------------------------------------------------------------------------------------이하 새로운, 점수 기록용 노드의 생성
+	if ((empty = (RANK*)malloc(sizeof(RANK))) == NULL)//사용자가 입력한 이름, 점수를 새로운 노드에 입력.
+	{
+		printf("No memory allocated..\n");//역시 예외처리
+	}
+	strcpy(empty->name, name);//본인의 이름
+	empty->score = score;//본인의 score
+	empty->next = NULL;//제어문 오류 방지.
+
+					   //-----------------------------------------------------이하 연결리스트에서의, 내림차순 노드 삽입(점수를 기준으로 함)
+
+	current = list;
+
+	while ((current != 0) && (current->score > score))
+	{
+		follow = current;
+		current = current->next;
+	}
+	// 삽입
+	empty->next = current;
+	if (current == list)//1등일 경우
+	{
+		list = empty;
+		empty->rankNum = 1; gotoxy(50, 21); printf("당신의 순위는 %d등.", empty->rankNum);
+		while (1)//본 노드 이하의 모든 노드들의 석차를 1씩 증가.
+		{
+			empty = empty->next;// printf("No memory allocated..1\n");
+			if (empty != NULL)
+				empty->rankNum += 1;
+
+			else break;
+		}
+	}
+	else// 중간, 혹은 마지막일 경우.
+	{
+		follow->next = empty;
+		empty->rankNum = follow->rankNum + 1; gotoxy(50, 21);  printf("당신의 순위는 %d등.", empty->rankNum);
+		while (1)//본 노드 이하의 모든 노드들의 석차를 1씩 증가.
+		{
+			empty = empty->next; //printf("No memory allocated..2\n");
+			if (empty != NULL)
+				empty->rankNum += 1;
+			else break;
+		}
+	}
+
+	//-----------------------------------------------------이하 10위권 밖의 노드 삭제 과정.
+
+	empty = current = follow = list;//여기서 empty는 10위의 노드를 찾음.(최종적으로, follow가 11위, current는 NULL 값임.)
+
+	while (current != NULL)//count가 노드의 갯수를 셈.
+	{
+		count++;
+		empty = follow;
+		follow = current;
+		current = current->next;
+	}
+
+	if (follow->rankNum == 11)//11위권일 경우(count가 11일 경우)의 처리, 마지막 노드(empty)의 next를 NULL처리.
+	{
+		free(follow);
+		empty->next = NULL;
+	}
+
+	//----------------------------------------------------------이하 파일에 출력
+
+
+	fpout = fopen("source.txt", "w");
+
+	current = list;
+	while (current != NULL)//이하 연결리스트의 데이터를 순차적으로 파일에 출력.
+	{
+		fprintf(fpout, "%d\t%s\t%d\n", current->rankNum, current->name, current->score);
+		current = current->next;
+	}
+
+	RANK *freeNode;
+
+	while (list != NULL) {
+		freeNode = list; // freeNode -> head로 초기화
+		list = list->next; // head는 head가 가르키는 다음 노드를 가르킨다
+		free(freeNode); // 메모리 해제
+	}
+
+	fclose(fpin);
+	fclose(fpout);
+
+	return;
+}
 
 COORD getXY() {
 	COORD Cur;
