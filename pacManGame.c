@@ -1365,6 +1365,10 @@ void gameMenuSelector() // 게임 메뉴 선택
 				select = cursorPoint;
 				cursorPoint = 0;
 				system("cls");
+
+
+				save(stage);
+
 				
 				return;
 			}
@@ -1532,9 +1536,11 @@ void save(int stage) {
 	
 	FILE *fpin;
 
-	fpin = fopen("save.txt", "r");
+	fpin = fopen("save.txt", "w");
 
 	while (!feof(fpin)) {
+		scanf("%d", &stage);
+		printf("%d", stage);
 		fprintf(fpin, "%d", stage);
 	}
 
