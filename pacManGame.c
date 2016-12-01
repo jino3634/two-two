@@ -22,6 +22,8 @@ void enemyMove(char *x, char *y);
 
 void disappear();
 
+void save(int stage);
+
 void printTitle();
 void gameMenu();
 void gameMenuSelector();
@@ -1524,4 +1526,17 @@ COORD getXY() {
 	Cur.X = a.dwCursorPosition.X;
 	Cur.Y = a.dwCursorPosition.Y;
 	return Cur;
+}
+
+void save(int stage) {
+	
+	FILE *fpin;
+
+	fpin = fopen("save.txt", "r");
+
+	while (!feof(fpin)) {
+		fprintf(fpin, "%d", stage);
+	}
+
+	fclose(fpin);
 }
