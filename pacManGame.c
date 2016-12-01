@@ -1295,7 +1295,7 @@ void gameMenuSelector() // 게임 메뉴 선택
 	while (1)
 	{
 		if (cursorPoint == 1)
-		{`
+		{
 			gotoxy(22, 28); printf("◀");
 			gotoxy(41, 28); printf("▶");
 			system("pause>null");
