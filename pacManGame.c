@@ -1534,11 +1534,9 @@ void save(int stage) {
 
 	fpin = fopen("save.txt", "w");
 
-	while (!feof(fpin)) {
-		scanf("%d", &stage);
-		printf("%d", stage);
-		fprintf(fpin, "%d", stage);
-	}
+	fprintf(fpin, "%d", stage);
+
+	printf("스테이지 : %d", stage);
 
 	fclose(fpin);
 }
