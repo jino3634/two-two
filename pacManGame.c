@@ -11,7 +11,6 @@
 #define UP 72                          
 #define DOWN 80                    
 
-
 void gotoxy(int x, int y);          
 COORD getXY();
 COORD Cur;
@@ -233,8 +232,6 @@ void main()
 	map = &map_1;
 
 
-
-
 	setmap();  //2-1
 
 	while (1)                             //2-2
@@ -272,7 +269,6 @@ void main()
 				}
 			}
 		}
-
 
 		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
 			key = _getch();//키를 입력 받음. 
@@ -1545,4 +1541,13 @@ void save(int stage) {
 	}
 
 	fclose(fpin);
+}
+
+int load()
+{
+	FILE *fp;
+	int a;
+	fscanf(fp, "%d",&a);
+
+	return a;
 }
