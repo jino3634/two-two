@@ -431,6 +431,10 @@ void gameStart()
 		//gotoxy(101   , 26);    
 		gotoxy(35, 25);// 위치 변경 12. 02 수정
 		printf("- SPACE바를 누르면 메뉴로 -\n");
+		if (GetAsyncKeyState(VK_SPACE)) // 이니셜 입력 후 스페이스바를 누르면 타이틀로 이동 12. 02 추가
+		{
+			return Title();
+		}
 	}
 
 
