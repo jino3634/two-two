@@ -1681,7 +1681,7 @@ void Title()
 void printRank()//***2012244063 한진오***
 {
 	system("mode con:cols=130 lines=53");
-	int x = 50, y = 15;
+	int x = 37, y = 15; // ■안에 넣기위해서 x값 수정 / 12. 02수정
 	int rank, frank = 2, score, i = 1;
 	char name[10] = { 0, };
 	char a = 0;
@@ -1722,6 +1722,7 @@ void printRank()//***2012244063 한진오***
 
 void goRank(int score)//***2012244063 한진오***
 {
+	system("mode con:cols=130 lines=53");
 
 	int count = 0, i = 0;
 	char name[10] = { 0, };
@@ -1730,10 +1731,15 @@ void goRank(int score)//***2012244063 한진오***
 	for (i = 0; i < 50; i++)
 		printf("■                                                                                                ■\n");
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
-
-	printf("영문 5자 이하의 이니셜 입력.\n");
 	
+	gotoxy(30, 13);
+	printf("=====================================");
+	gotoxy(30, 15); // ■안에 출력하기 위해 추가
+	printf("영문 5자 이하의 이니셜을 입력하세요!!");
+	gotoxy(48, 17);
 	scanf("%s", name);
+	gotoxy(30, 19);
+	printf("=====================================");
 
 	FILE *fpin = 0, *fpout = 0;//파일포인터변수의선언
 
