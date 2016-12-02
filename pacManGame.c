@@ -430,7 +430,7 @@ void gameStart()
 		printf("- SPACE바를 누르면 메뉴로 -\n");
 		if (GetAsyncKeyState(VK_SPACE)) // 이니셜 입력 후 스페이스바를 누르면 타이틀로 이동 12. 02 추가
 		{
-			return Title();
+			Title();
 		}
 	}
 
@@ -1261,7 +1261,7 @@ void printTitle()
 
 void gameMenu() // 게임 메뉴
 {
-	int x = 18, y = 20;
+	int x = 20, y = 20;
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	gotoxy(x, y);
@@ -1269,7 +1269,7 @@ void gameMenu() // 게임 메뉴
 	gotoxy(x, y + 1);
 	printf("■■■□★■□□  ♪■■□□■");
 	gotoxy(x, y + 2);
-	printf("□□□■Bongjae Travel□■☆■");
+	printf("□□□■봉재's  Travel□■☆■");
 	gotoxy(x, y + 3);
 	printf("■■□■■햄□버■거□□■□□");
 	gotoxy(x, y + 4);
@@ -1296,8 +1296,8 @@ void gameMenuSelector() // 게임 메뉴 선택
 	{
 		if (cursorPoint == 1)
 		{
-			gotoxy(22, 28); printf("◀");
-			gotoxy(41, 28); printf("▶");
+			gotoxy(24, 28); printf("◀");
+			gotoxy(43, 28); printf("▶");
 			system("pause>null");
 			if (GetAsyncKeyState(VK_DOWN) & 0x0001)
 			{
@@ -1324,8 +1324,8 @@ void gameMenuSelector() // 게임 메뉴 선택
 				gotoxy(x, y); y += 1;
 				printf("       ■■■■■■");
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				gotoxy(22, 28); printf(" ");
-				gotoxy(41, 28); printf(" ");
+				gotoxy(24, 28); printf(" ");
+				gotoxy(43, 28); printf(" ");
 				cursorPoint++;
 			}
 			if (GetAsyncKeyState(VK_SPACE)) // SPACE키 입력되면 실행.
@@ -1340,8 +1340,8 @@ void gameMenuSelector() // 게임 메뉴 선택
 		}
 		else if (cursorPoint == 2)
 		{
-			gotoxy(22, 30); printf("◀");
-			gotoxy(41, 30); printf("▶");
+			gotoxy(24, 30); printf("◀");
+			gotoxy(43, 30); printf("▶");
 			system("pause>null");
 			if (GetAsyncKeyState(VK_DOWN) & 0x0001)
 			{
@@ -1368,8 +1368,8 @@ void gameMenuSelector() // 게임 메뉴 선택
 				gotoxy(x, y); y += 1;
 				printf("       ■■■■■■");
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				gotoxy(22, 30); printf(" ");
-				gotoxy(41, 30); printf(" ");
+				gotoxy(24, 30); printf(" ");
+				gotoxy(43, 30); printf(" ");
 				cursorPoint++;
 			}
 			if (GetAsyncKeyState(VK_UP) & 0x0001)
@@ -1397,8 +1397,8 @@ void gameMenuSelector() // 게임 메뉴 선택
 				gotoxy(x, y); y += 1;
 				printf("       ■■■■■■");
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				gotoxy(22, 30); printf(" ");
-				gotoxy(41, 30); printf(" ");
+				gotoxy(24, 30); printf(" ");
+				gotoxy(43, 30); printf(" ");
 				cursorPoint--;
 			}
 			if (GetAsyncKeyState(VK_SPACE))
@@ -1416,8 +1416,8 @@ void gameMenuSelector() // 게임 메뉴 선택
 		}
 		else if (cursorPoint == 3)
 		{
-			gotoxy(22, 32); printf("◀");
-			gotoxy(41, 32); printf("▶");
+			gotoxy(24, 32); printf("◀");
+			gotoxy(43, 32); printf("▶");
 			system("pause>null");
 			if (GetAsyncKeyState(VK_DOWN) & 0x0001)
 			{
@@ -1444,8 +1444,8 @@ void gameMenuSelector() // 게임 메뉴 선택
 				gotoxy(x, y); y += 1;
 				printf("       ■■■■■■");
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				gotoxy(22, 32); printf(" ");
-				gotoxy(41, 32); printf(" ");
+				gotoxy(24, 32); printf(" ");
+				gotoxy(43, 32); printf(" ");
 				cursorPoint++;
 			}
 			if (GetAsyncKeyState(VK_UP) & 0x0001)
@@ -1473,8 +1473,8 @@ void gameMenuSelector() // 게임 메뉴 선택
 				gotoxy(x, y); y += 1;
 				printf("       ■■■■■■");
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				gotoxy(22, 32); printf(" ");
-				gotoxy(41, 32); printf(" ");
+				gotoxy(24, 32); printf(" ");
+				gotoxy(43, 32); printf(" ");
 				cursorPoint--;
 			}
 			if (GetAsyncKeyState(VK_SPACE))
@@ -1483,23 +1483,12 @@ void gameMenuSelector() // 게임 메뉴 선택
 				cursorPoint = 0;
 				system("cls");
 				printRank();
-				int key=1;
-				while (1)
-				{
-					if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
-					{
-						key = _getch();//키를 입력 받음. (스페이스 중복입력 방지)
-						break;
-					}
-				}
-				system("cls");
-				Title();
 			}
 		}
 		else if (cursorPoint == 4)
 		{
-			gotoxy(22, 34); printf("◀");
-			gotoxy(41, 34); printf("▶");
+			gotoxy(24, 34); printf("◀");
+			gotoxy(43, 34); printf("▶");
 			system("pause>null");
 			if (GetAsyncKeyState(VK_UP) & 0x0001)
 			{
@@ -1526,16 +1515,17 @@ void gameMenuSelector() // 게임 메뉴 선택
 				gotoxy(x, y); y += 1;
 				printf("       ■■■■■■");
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				gotoxy(22, 34); printf(" ");
-				gotoxy(41, 34); printf(" ");
+				gotoxy(24, 34); printf(" ");
+				gotoxy(43, 34); printf(" ");
 				cursorPoint--;
 			}
 			if (GetAsyncKeyState(VK_SPACE))
 			{
 				cursorPoint = 0;
 				system("cls");
-				gotoxy(35, 15);
-				printf("--프로그램을 종료합니다--\n");
+				gotoxy(55, 21);
+				printf("--여행을 마칩니다--");
+				gotoxy(48, 23); // 계속하려면 아무 키나 누르십시오 . . . 정렬을 위해 커서 옮김.
 				Sleep(2000);
 				exit(1);
 			}
@@ -1547,7 +1537,7 @@ void Intro1()
 {
 	system("mode con:cols=130 lines=53"); // 인트로에서 130x53으로 맞추고 그후로 이 상태로 진행.
 	int i;
-	int count;
+	//int count;
 
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 	for (i = 0; i < 50; i++)
@@ -1615,7 +1605,7 @@ void Intro1()
 void Intro1_1()
 {
 	int i;
-	int count;
+	//int count;
 
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 	for (i = 0; i < 50; i++)
@@ -1696,7 +1686,7 @@ void Intro1_1()
 	gotoxy(101, 45);
 	printf("      :==:::====:::==+.");
 	gotoxy(101, 46);
-	printf("      *■■■■■■■%.");
+	printf("      *■■■■■■■%%.");
 	gotoxy(101, 47);
 	printf("     .■■■#++#■■■");
 	gotoxy(101, 48);
@@ -1729,7 +1719,7 @@ void Intro1_1()
 void Intro2()
 {
 	int i;
-	int count;
+	//int count;
 
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 	for (i = 0; i < 50; i++)
@@ -1793,6 +1783,7 @@ void Title()
 void printRank()//***2012244063 한진오***
 {
 	system("mode con:cols=130 lines=53");
+	int key = 1;
 	int x = 37, y = 15; // ■안에 넣기위해서 x값 수정 / 12. 02 SW수정
 	int rank, frank = 2, score, i = 1;
 	char name[10] = { 0, };
@@ -1813,22 +1804,33 @@ void printRank()//***2012244063 한진오***
 		return;
 	}
 	gotoxy(x, y); y = y + 2;
-	printf("rank\tname\tscore\n");
-
+	printf("RANK\tNAME\tSCORE\n");
 	while (!feof(fpin))//파일의 끝이면 0이 아닌값, 끝이면 0 반환.->http://me.tistory.com/380
 	{
 		fscanf(fpin, "%d %s %d ", &rank, name, &score);
 		gotoxy(x, y); y = y + 2;
 		if (rank != frank)//개행 문자 때문에 마지막 순위가 두번 입력되어, 전번 순위와 같을시 기록이 안되게 함.
 		{
-			printf(" %d\t%s\t%d\n", rank, name, score);
+			printf("%3d\t%s\t%d\n", rank, name, score); // %3d를 사용함으로서 깔끔하게 출력 /SW 12.03 수정
 			frank = rank;
 		}
 		else
 			break;
-
-
 	}
+
+	gotoxy(33, 39);
+	printf("계속하려면 아무 키나 누르세요.");
+	
+	while (1)
+	{
+		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
+		{
+			key = GetAsyncKeyState(VK_SPACE);//키를 입력 받음. (스페이스 중복입력 방지) // _getch() 이게 key에 값을 입력 못해서 계속 다음 타이틀까지 사용됨. / SW 12. 03 수정
+			break;
+		}
+	}
+	system("cls");
+	Title();
 
 }
 
