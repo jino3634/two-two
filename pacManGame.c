@@ -242,9 +242,6 @@ void main()
 	//main();
 }
 
-/*******************************************/
-
-/******************3번*********************/
 void gameStart()
 {
 	system("mode con:cols=130 lines=53");
@@ -1559,10 +1556,44 @@ void Intro1()
 
 	gotoxy(38, 15);
 	printf("봉재의 햄버거 여행기 1");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+	gotoxy(101, 44);
+	printf("          ▶");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	gotoxy(101, 45);
+	printf("          l");
+	gotoxy(101, 46);
+	printf("    ■■■■■■");
+	gotoxy(101, 47);
+	printf("    ■■    ■■");
+	gotoxy(101, 48);
+	printf("  ■■■    ■■■");
+	gotoxy(101, 49);
+	printf("■■■■■■■■■■");
+	gotoxy(101, 50);
+	printf("■■■■■■■■■■");
+	gotoxy(101, 51);
+	printf("■■■■■■■■■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+	gotoxy(125, 46);
+	printf("■");
+	gotoxy(123, 47);
+	printf("■■■");
+	gotoxy(123, 48);
+	printf("■■■");
+	gotoxy(123, 49);
+	printf("■■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+	gotoxy(125, 50);
+	printf("■");
+	gotoxy(125, 51);
+	printf("■");
+	
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	Sleep(1000);
 	gotoxy(36, 19);
 	printf("XXXX년 XX월 XX일 선문대학교");
-	Sleep(1000);
+	Sleep(1500);
 	gotoxy(28, 23);
 	printf("봉재: 하암, 아메리카나 햄버거는 질려");
 	Sleep(1000);
@@ -1583,7 +1614,6 @@ void Intro1()
 
 void Intro1_1()
 {
-	
 	int i;
 	int count;
 
@@ -1595,11 +1625,89 @@ void Intro1_1()
 	gotoxy(38, 15);
 	printf("봉재의 햄버거 여행기 1");
 	PlaySound(TEXT("Airplane sound.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
+	gotoxy(101, 2);
+	printf("        ■■    ■■");
+	gotoxy(101, 3);
+	printf("         ■■■■■");
+	gotoxy(101, 4);
+	printf("           ■■■");
+	gotoxy(101, 5);
+	printf("            ■■");
+	gotoxy(101, 6);
+	printf("            ■■");
+	gotoxy(101, 7);
+	printf("  +:        ■■        :+");
+	gotoxy(101, 8);
+	printf("  ■#+:     ■■     :+#■");
+	gotoxy(101, 9);
+	printf("  ■■■■  ■■  ■■■■");
+	gotoxy(101, 10);
+	printf("  +■■■■■■■■■■■+");
+	gotoxy(101, 11);
+	printf("    *■■■■■■■■■*");
+	gotoxy(101, 12);
+	printf("     #■■■■■■■■#");
+	gotoxy(101, 13);
+	printf("        %%■■■■■%%");
+	gotoxy(101, 14);
+	printf("          *■■■*");
+	gotoxy(101, 15);
+	printf("           ■■■");
+	gotoxy(101, 16);
+	printf("           ■■■");
+	gotoxy(101, 17);
+	printf("           ■■■");
+	gotoxy(101, 18);
+	printf("            ■■");
 	Sleep(5500);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	gotoxy(38, 19);
 	printf("XXXX년 XX월 XX일 프랑스");
 	PlaySound(TEXT("La Marseillaise.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
-	Sleep(1000);
+	gotoxy(101, 31);
+	printf("             %%%%");
+	gotoxy(101, 32);
+	printf("            *■*");
+	gotoxy(101, 33);
+	printf("            ■■");
+	gotoxy(101, 34);
+	printf("           .■■.");
+	gotoxy(101, 35);
+	printf("           :■■:");
+	gotoxy(101, 36);
+	printf("           =■■=");
+	gotoxy(101, 37);
+	printf("            ....");
+	gotoxy(101, 38);
+	printf("          #%%%%%%%%%%%%#");
+	gotoxy(101, 39);
+	printf("          .■■■.");
+	gotoxy(101, 40);
+	printf("          =■■■=");
+	gotoxy(101, 41);
+	printf("          ■■■■");
+	gotoxy(101, 42);
+	printf("         :■*  *■:");
+	gotoxy(101, 43);
+	printf("         ■@    ■@");
+	gotoxy(101, 44);
+	printf("        :**=    =**:");
+	gotoxy(101, 45);
+	printf("      :==:::====:::==+.");
+	gotoxy(101, 46);
+	printf("      *■■■■■■■%.");
+	gotoxy(101, 47);
+	printf("     .■■■#++#■■■");
+	gotoxy(101, 48);
+	printf("    .■■@=      =■■@.");
+	gotoxy(101, 49);
+	printf("    ■■@:        :■■@");
+	gotoxy(101, 50);
+	printf("  .■■@%%          %%■■@.");
+	gotoxy(101, 51);
+	printf("  %%■■@*          *■■@%%");
+	Sleep(1500);
 	gotoxy(28, 23);
 	printf("봉재: 여기가 빵으로 유명한 프랑스인가?");
 	Sleep(1000);
@@ -1685,7 +1793,7 @@ void Title()
 void printRank()//***2012244063 한진오***
 {
 	system("mode con:cols=130 lines=53");
-	int x = 37, y = 15; // ■안에 넣기위해서 x값 수정 / 12. 02수정
+	int x = 37, y = 15; // ■안에 넣기위해서 x값 수정 / 12. 02 SW수정
 	int rank, frank = 2, score, i = 1;
 	char name[10] = { 0, };
 	char a = 0;
