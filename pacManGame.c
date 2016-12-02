@@ -38,6 +38,7 @@ void Title();
 void gameStart();
 void Intro1();
 void Intro1_1();
+void Intro2();
 void goRank(int score);
 void printRank();
 
@@ -1611,6 +1612,42 @@ void Intro1_1()
 	getchar();
 	system("cls");
 	gameStart();
+}
+
+void Intro2()
+{
+	int i;
+	int count;
+
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(38, 15);
+	printf("봉재의 햄버거 여행기 2");
+	PlaySound(TEXT("Airplane sound.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	Sleep(5500);
+	gotoxy(38, 19);
+	printf("XXXX년 XX월 XX일 미국");
+	PlaySound(TEXT("America Theme.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); //BGM 추가해야함
+	Sleep(1000);
+	gotoxy(28, 23);
+	printf("봉재: 여기가 햄버거의 고장 미국이구나!!");
+	Sleep(1000);
+	gotoxy(34, 25);
+	printf("최고의 소고기 패티를 위해 소고기를 구하자!");
+	Sleep(1000);
+	gotoxy(28, 27);
+	printf("목장주인: 네 이놈!! 어디서 소고기를 몰래 훔쳐가려고해!");
+	Sleep(1000);
+	gotoxy(28, 29);
+	printf("봉재: 목장주인들을 피해 소고기를 얼른 구하자!");
+	gotoxy(50, 33);
+	printf("Enter 키를 눌러주세요.");
+	getchar();
+	system("cls");
+
 }
 
 void Title()
