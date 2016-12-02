@@ -36,6 +36,8 @@ void gameMenu();
 void gameMenuSelector();
 void Title();
 void gameStart();
+void Intro1();
+void Intro1_1();
 void goRank(int score);
 void printRank();
 
@@ -235,9 +237,6 @@ void main()
 	
 	disappear();// 처음부터 커서를 제거함. 11.28 수정
 	Title();
-
-	
-	
 	
 	//main();
 }
@@ -883,14 +882,6 @@ void enemyMove(char *x, char *y)//8방으로..
 
 }
 
-
-
-
-
-/*******************************************/
-
-/******************4번**********************/
-
 void initialization()
 {
 	system("cls");
@@ -982,17 +973,12 @@ void setmap()
 	}
 	gotoxy(startx * 2, starty);                                                            //4-4
 }
-/*******************************************/
-
-/******************5번*********************/
 
 void gotoxy(int x, int y)
 {
 	COORD position = { x, y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);
 }
-
-
 
 void disappear() { // goto사용시 깜박이는 콘솔의 커서 제거, 참고문헌 http://tip.daum.net/question/39372106
 	HANDLE hConsole; // 콘솔 핸들
@@ -1340,12 +1326,13 @@ void gameMenuSelector() // 게임 메뉴 선택
 				gotoxy(41, 28); printf(" ");
 				cursorPoint++;
 			}
-			if (GetAsyncKeyState(VK_SPACE))
+			if (GetAsyncKeyState(VK_SPACE)) // SPACE키 입력되면 실행.
 			{
 				select = cursorPoint;
 				cursorPoint = 0;
 				system("cls");
-				gameStart();
+
+				Intro1();
 			//	Title();
 			}
 		}
@@ -1554,9 +1541,80 @@ void gameMenuSelector() // 게임 메뉴 선택
 	}
 }
 
+void Intro1()
+{
+	system("mode con:cols=130 lines=53"); // 인트로에서 130x53으로 맞추고 그후로 이 상태로 진행.
+	int i;
+	int count;
+
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(38, 15);
+	printf("봉재의 햄버거 여행기 1");
+	Sleep(1000);
+	gotoxy(36, 19);
+	printf("XXXX년 XX월 XX일 선문대학교");
+	Sleep(1000);
+	gotoxy(28, 23);
+	printf("봉재: 하암, 아메리카나 햄버거는 질려");
+	Sleep(1000);
+	gotoxy(34, 25);
+	printf("그렇다고 프랜차이즈 버거들은 더 질리고...");
+	Sleep(1000);
+	gotoxy(34, 27);
+	printf("어디 맛있는... 그래! 내가 세계각지를 다니면서");
+	Sleep(1000);
+	gotoxy(34, 29);
+	printf("가장 맛있는 햄버거를 만드는거야!");
+	gotoxy(50, 33);
+	printf("Enter 키를 눌러주세요.");
+	getchar();
+	system("cls");
+	Intro1_1();
+}
+
+void Intro1_1()
+{
+	
+	int i;
+	int count;
+
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(38, 15);
+	printf("봉재의 햄버거 여행기 1");
+	PlaySound(TEXT("Airplane sound.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	Sleep(5500);
+	gotoxy(38, 19);
+	printf("XXXX년 XX월 XX일 프랑스");
+	PlaySound(TEXT("La Marseillaise.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+	Sleep(1000);
+	gotoxy(28, 23);
+	printf("봉재: 여기가 빵으로 유명한 프랑스인가?");
+	Sleep(1000);
+	gotoxy(34, 25);
+	printf("프랑스 각지에 버거빵 재료가 흩어져 있다고 하는데");
+	Sleep(1000);
+	gotoxy(34, 27);
+	printf("버거 도둑들을 피해서 재료를 모으자!!");
+	Sleep(1000);
+	gotoxy(34, 29);
+	printf("프랑스에서 가장 맛있는 버거빵을 만드는거야!");
+	gotoxy(50, 33);
+	printf("Enter 키를 눌러주세요.");
+	getchar();
+	system("cls");
+	gameStart();
+}
+
 void Title()
 {
-
 	system("mode con:cols=130 lines=43"); // 타이틀화면에서만 130x43 크기로 지정. (깔끔해보이도록 조정)
 
 	system("title 봉재의 햄버거 여행기");
@@ -1585,11 +1643,17 @@ void Title()
 
 void printRank()//***2012244063 한진오***
 {
+	system("mode con:cols=130 lines=53");
 	int x = 50, y = 15;
 	int rank, frank = 2, score, i = 1;
 	char name[10] = { 0, };
 	char a = 0;
 	FILE *fpin = 0;//파일포인터변수의선언
+
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 
 	fpin = fopen("source.txt", "r");
 
@@ -1625,8 +1689,13 @@ void goRank(int score)//***2012244063 한진오***
 	int count = 0, i = 0;
 	char name[10] = { 0, };
 
-	printf("영문 5자 이하의 이니셜 입력.");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 
+	printf("영문 5자 이하의 이니셜 입력.\n");
+	
 	scanf("%s", name);
 
 	FILE *fpin = 0, *fpout = 0;//파일포인터변수의선언
@@ -1790,7 +1859,7 @@ void save(int stage) {
 	fclose(fpin);
 }
 
-int load()
+/*int load()
 {
 	FILE *fp;
 	int a;
@@ -1798,4 +1867,4 @@ int load()
 	fscanf(fp, "%d", &a);
 
 	return a;
-}
+}*/
