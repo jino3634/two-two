@@ -429,8 +429,8 @@ void gameStart()
 	{
 		key = _getch();
 		//gotoxy(101   , 26);    
-		gotoxy(50, 22);//2-5
-		printf("스페이스바를 누르면 메뉴로\n");
+		gotoxy(35, 25);// 위치 변경 12. 02 수정
+		printf("- SPACE바를 누르면 메뉴로 -\n");
 	}
 
 
@@ -1736,10 +1736,11 @@ void goRank(int score)//***2012244063 한진오***
 	printf("=====================================");
 	gotoxy(30, 15); // ■안에 출력하기 위해 추가
 	printf("영문 5자 이하의 이니셜을 입력하세요!!");
-	gotoxy(48, 17);
-	scanf("%s", name);
 	gotoxy(30, 19);
 	printf("=====================================");
+	gotoxy(48, 17);
+	scanf("%s", name);
+	
 
 	FILE *fpin = 0, *fpout = 0;//파일포인터변수의선언
 
@@ -1812,7 +1813,7 @@ void goRank(int score)//***2012244063 한진오***
 	if (current == list)//1등일 경우
 	{
 		list = empty;
-		empty->rankNum = 1; gotoxy(50, 21); printf("당신의 순위는 %d등.", empty->rankNum);
+		empty->rankNum = 1; gotoxy(40, 21); printf("당신의 순위는 %d등!", empty->rankNum);
 		while (1)//본 노드 이하의 모든 노드들의 석차를 1씩 증가.
 		{
 			empty = empty->next;// printf("No memory allocated..1\n");
@@ -1825,7 +1826,7 @@ void goRank(int score)//***2012244063 한진오***
 	else// 중간, 혹은 마지막일 경우.
 	{
 		follow->next = empty;
-		empty->rankNum = follow->rankNum + 1; gotoxy(50, 21);  printf("당신의 순위는 %d등.", empty->rankNum);
+		empty->rankNum = follow->rankNum + 1; gotoxy(40, 21);  printf("당신의 순위는 %d등!", empty->rankNum);
 		while (1)//본 노드 이하의 모든 노드들의 석차를 1씩 증가.
 		{
 			empty = empty->next; //printf("No memory allocated..2\n");
