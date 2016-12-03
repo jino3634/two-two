@@ -846,7 +846,8 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	}
 	gotoxy(110, 3);
 	printf("score : %d", score);//점수 출력
-	
+	gotoxy(110, 5);
+	printf("Q : 게임 저장");//점수 출력
 	
 
 	gotoxy(startx * 2, starty);                                    
