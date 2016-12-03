@@ -1811,14 +1811,14 @@ void printRank()//***2012244063 한진오***
 		gotoxy(x, y); y = y + 2;
 		if (rank != frank)//개행 문자 때문에 마지막 순위가 두번 입력되어, 전번 순위와 같을시 기록이 안되게 함.
 		{
-			printf("%3d\t%s\t%d\n", rank, name, score); // %3d를 사용함으로서 깔끔하게 출력 /SW 12.03 수정
+			printf("%3d\t%s\t%4d\n", rank, name, score); // %3d, %4d를 사용함으로서 깔끔하게 출력 /SW 12.03 수정
 			frank = rank;
 		}
 		else
 			break;
 	}
 
-	gotoxy(33, 39);
+	gotoxy(34, 39);
 	printf("계속하려면 아무 키나 누르세요.");
 	
 	while (1)
