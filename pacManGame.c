@@ -41,27 +41,32 @@ void Intro1_1();
 void Intro2();
 void goRank(int score);
 void printRank();
+void loadGame();
 
 char(*map)[50];
-int enemyCount = 0;
-int stage = 1;
-int score;
+char empty[50][50];
 
-char startx = 0;                       
-char starty = 0;                      
+
+
+static int enemyCount = 0;
+static int stage = 1;
+static int score;
+
+static char startx = 0;                       
+static char starty = 0;
 										
 
-char u1x = 0;
-char u1y = 0;
+static char u1x = 0;
+static char u1y = 0;
 
-char u2x = 0;
-char u2y = 0;
+static char u2x = 0;
+static char u2y = 0;
 
-char u3x = 0;
-char u3y = 0;
+static char u3x = 0;
+static char u3y = 0;
 
-char u4x = 0;
-char u4y = 0;
+static char u4x = 0;
+static char u4y = 0;
 
 void initialization();
 
@@ -236,6 +241,9 @@ char map_3[50][50] =
 void main()
 {
 	
+	map = &empty;
+	system("mode con:cols=130 lines=53");
+	
 	disappear();// 처음부터 커서를 제거함. 11.28 수정
 	Title();
 	
@@ -244,13 +252,24 @@ void main()
 
 void gameStart()
 {
+	map = &empty;
 	system("mode con:cols=130 lines=53");
 	initialization();//이하 맵 셋팅;
 
 	int state = 3;
 	int key = 1;//초기화를 안하면 if문에서 에러가 나므로, 아무 값이나 초기화.
 
-	map = &map_1;
+	//memcpy(empty, map_1, sizeof(map_1)); // or memcpy(dstArr, srcArr, sizeof(int) * ARR_SIZE); 배열 복사 ->http://kkikkodev.tistory.com/51
+	//copy_array(map_1, empty, 50);//empty에 map_1 배열을 복사.
+
+	int i,j;
+	for (i = 0; i < 50; i++)
+	{
+		for (j = 0; j < 50; j++)
+		{
+			empty[i][j] = map_1[i][j];
+		}
+	}
 
 	setmap();  //2-1
 
@@ -276,6 +295,7 @@ void gameStart()
 		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
 		{
 			printf("게임오버");
+			initialization();
 			break;// 탈출
 		}
 		//--------------------------------------------------------------------------------------------------유령의 움직임을 2번으로 설정함 //(스테이지별로 if문 걸어서 난이도 설정 가능..)
@@ -299,6 +319,7 @@ void gameStart()
 		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
 		{
 			printf("게임오버");
+			initialization();
 			break;// 탈출
 		}
 
@@ -318,12 +339,25 @@ void gameStart()
 			stage++;
 			if (stage == 2)
 			{
-				map = &map_2;
+				Intro2();
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_2[i][j];
+					}
+				}
 				setmap();
 			}
 			else if (stage == 3)
 			{
-				map = &map_3;
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_3[i][j];
+					}
+				}
 				setmap();
 			}
 
@@ -337,6 +371,7 @@ void gameStart()
 		else if (state == 2)
 		{
 			printf("게임오버");
+			initialization();
 			break;// 탈출
 		}
 
@@ -357,12 +392,25 @@ void gameStart()
 			stage++;
 			if (stage == 2)
 			{
-				map = &map_2;
+				Intro2();
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_2[i][j];
+					}
+				}
 				setmap();
 			}
 			else if (stage == 3)
 			{
-				map = &map_3;
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_3[i][j];
+					}
+				}
 				setmap();
 			}
 
@@ -376,6 +424,7 @@ void gameStart()
 		else if (state == 2)
 		{
 			printf("게임오버");
+			initialization();
 			break;// 탈출
 		}
 		//--------------------------------------------------------------------------------------------------유저의 움직임을 3번으로 설정함 ㅠㅠ//(스테이지별로 if문 걸어서 난이도 설정 가능..)
@@ -394,12 +443,25 @@ void gameStart()
 			stage++;
 			if (stage == 2)
 			{
-				map = &map_2;
+				Intro2();
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_2[i][j];
+					}
+				}
 				setmap();
 			}
 			else if (stage == 3)
 			{
-				map = &map_3;
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_3[i][j];
+					}
+				}
 				setmap();
 			}
 
@@ -413,6 +475,7 @@ void gameStart()
 		else if (state == 2)
 		{
 			printf("게임오버");
+			initialization();
 			break;// 탈출
 		}
 
@@ -436,6 +499,273 @@ void gameStart()
 
 
 
+}
+
+void loadGame()
+{
+	system("mode con:cols=130 lines=53");
+	int state = 3;
+	int key = 1;//초기화를 안하면 if문에서 에러가 나므로, 아무 값이나 초기화.
+
+				
+	int i, j;
+
+	if (stage == 1)
+	{
+		for (i = 0; i < 50; i++)
+		{
+			for (j = 0; j < 50; j++)
+			{
+				empty[i][j] = map_1[i][j];
+			}
+		}
+	}
+	else if (stage == 2)
+	{
+		for (i = 0; i < 50; i++)
+		{
+			for (j = 0; j < 50; j++)
+			{
+				empty[i][j] = map_2[i][j];
+			}
+		}
+	}
+	else if (stage == 3)
+	{
+		for (i = 0; i < 50; i++)
+		{
+			for (j = 0; j < 50; j++)
+			{
+				empty[i][j] = map_3[i][j];
+			}
+		}
+	}
+
+	setmap();  //2-1
+
+	while (1)                             //2-2
+	{
+
+		enemyMove(&u1x, &u1y);
+
+
+		if (enemyCount >= 2)//유령의 갯수를 파악하여 움직임..
+		{
+			enemyMove(&u2x, &u2y);
+			if (enemyCount >= 3)
+			{
+				enemyMove(&u3x, &u3y);
+				if (enemyCount >= 4)
+				{
+					enemyMove(&u4x, &u4y);
+				}
+			}
+		}
+
+		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
+		{
+			printf("게임오버");
+			initialization();
+			break;// 탈출
+		}
+		//--------------------------------------------------------------------------------------------------유령의 움직임을 2번으로 설정함 //(스테이지별로 if문 걸어서 난이도 설정 가능..)
+		enemyMove(&u1x, &u1y);
+
+		//printf(" %d %d", u1x, u1y);
+
+		if (enemyCount >= 2)//유령의 갯수를 파악하여 움직임..
+		{
+			enemyMove(&u2x, &u2y);
+			if (enemyCount >= 3)
+			{
+				enemyMove(&u3x, &u3y);
+				if (enemyCount >= 4)
+				{
+					enemyMove(&u4x, &u4y);
+				}
+			}
+		}
+
+		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
+		{
+			printf("게임오버");
+			initialization();
+			break;// 탈출
+		}
+
+
+		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
+			key = _getch();//키를 입력 받음. 
+
+		state = move(key);//움직이며 상태 변수를 반환.
+		Sleep(100);
+
+		if (state == 1)
+		{
+			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			Sleep(3000);
+
+			initialization();//이하 맵 셋팅;
+			stage++;
+			if (stage == 2)
+			{
+				Intro2();
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_2[i][j];
+					}
+				}
+				setmap();
+			}
+			else if (stage == 3)
+			{
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_3[i][j];
+					}
+				}
+				setmap();
+			}
+
+			else if (stage == 4)
+			{
+				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				break;//탈출
+			}
+
+		}
+		else if (state == 2)
+		{
+			printf("게임오버");
+			initialization();
+			break;// 탈출
+		}
+
+
+		//--------------------------------------------------------------------------------------------------유저의 움직임을 3번으로 설정함 ㅠㅠ//(스테이지별로 if문 걸어서 난이도 설정 가능..)
+		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
+			key = _getch();//키를 입력 받음. 
+		state = move(key);//움직이며 상태 변수를 반환.
+
+		Sleep(100);
+
+		if (state == 1)
+		{
+			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			Sleep(3000);
+
+			initialization();//이하 맵 셋팅;
+			stage++;
+			if (stage == 2)
+			{
+				Intro2();
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_2[i][j];
+					}
+				}
+				setmap();
+			}
+			else if (stage == 3)
+			{
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_3[i][j];
+					}
+				}
+				setmap();
+			}
+
+			else if (stage == 4)
+			{
+				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				break;//탈출
+			}
+
+		}
+		else if (state == 2)
+		{
+			printf("게임오버");
+			initialization();
+			break;// 탈출
+		}
+		//--------------------------------------------------------------------------------------------------유저의 움직임을 3번으로 설정함 ㅠㅠ//(스테이지별로 if문 걸어서 난이도 설정 가능..)
+		if (_kbhit())//키 입력 여부 확인 ->http://showmiso.tistory.com/8
+			key = _getch();//키를 입력 받음. 
+		state = move(key);//움직이며 상태 변수를 반환.
+
+		Sleep(100);
+
+		if (state == 1)
+		{
+			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			Sleep(3000);
+
+			initialization();//이하 맵 셋팅;
+			stage++;
+			if (stage == 2)
+			{
+				Intro2();
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_2[i][j];
+					}
+				}
+				setmap();
+			}
+			else if (stage == 3)
+			{
+				for (i = 0; i < 50; i++)
+				{
+					for (j = 0; j < 50; j++)
+					{
+						empty[i][j] = map_3[i][j];
+					}
+				}
+				setmap();
+			}
+
+			else if (stage == 4)
+			{
+				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				break;//탈출
+			}
+
+		}
+		else if (state == 2)
+		{
+			printf("게임오버");
+			initialization();
+			break;// 탈출
+		}
+
+
+	}
+	system("cls");
+	gotoxy(50, 20);
+	goRank(score);
+	score = 0;
+	while (key != 32)                   //2-4
+	{
+		key = _getch();
+		//gotoxy(101   , 26);    
+		gotoxy(35, 25);// 위치 변경 12. 02 수정
+		printf("- SPACE바를 누르면 메뉴로 -\n");
+		if (GetAsyncKeyState(VK_SPACE)) // 이니셜 입력 후 스페이스바를 누르면 타이틀로 이동 12. 02 추가
+		{
+			Title();
+		}
+	}
 }
 
 int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
@@ -516,7 +846,8 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	}
 	gotoxy(110, 3);
 	printf("score : %d", score);//점수 출력
-	
+	gotoxy(110, 5);
+	printf("Q : 게임 저장");//점수 출력
 	
 
 	gotoxy(startx * 2, starty);                                    
@@ -911,6 +1242,7 @@ void setmap()
 {
 	char ch;
 
+	initialization();
 
 
 	for (int i = 0; i<2500 / 50; i++)    //2500은 char[50][50]의 배열 크기, 50은 한 라인의 크기                  //4-1
@@ -924,7 +1256,25 @@ void setmap()
 				printf("·");
 				break;
 			case 1:
-				printf("■");
+				if (stage == 1)
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("■");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				}
+				else if (stage == 2)
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
+					printf("■");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				}
+				else if (stage == 3)
+				{
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+					printf("■");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+				}
+				
 				break;
 			case 2:
 				printf("◎");
@@ -1408,7 +1758,9 @@ void gameMenuSelector() // 게임 메뉴 선택
 				system("cls");
 
 
-				save(stage);
+				stage = load();
+				loadGame();
+
 
 				
 				return;
@@ -2011,18 +2363,27 @@ void save(int stage) {
 	fpin = fopen("save.txt", "w");
 
 	fprintf(fpin, "%d", stage);
-
-	printf("스테이지 : %d", stage);
-
+	
+	Sleep(1000);
 	fclose(fpin);
 }
 
-/*int load()
+int load()
 {
 	FILE *fp;
 	int a;
 
+	fp = fopen("save.txt", "r");
+	if (fp == NULL)
+	{
+		printf("기록되지 않음");
+		Sleep(1000);
+		return 1;
+	}
 	fscanf(fp, "%d", &a);
+	printf("스테이지 : %d", a);
+	Sleep(1000);
+
 
 	return a;
-}*/
+}
