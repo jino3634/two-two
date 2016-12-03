@@ -339,6 +339,7 @@ void gameStart()
 			stage++;
 			if (stage == 2)
 			{
+				Intro2();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
@@ -391,6 +392,7 @@ void gameStart()
 			stage++;
 			if (stage == 2)
 			{
+				Intro2();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
@@ -441,6 +443,7 @@ void gameStart()
 			stage++;
 			if (stage == 2)
 			{
+				Intro2();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
@@ -606,6 +609,7 @@ void loadGame()
 			stage++;
 			if (stage == 2)
 			{
+				Intro2();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
@@ -658,6 +662,7 @@ void loadGame()
 			stage++;
 			if (stage == 2)
 			{
+				Intro2();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
@@ -708,6 +713,7 @@ void loadGame()
 			stage++;
 			if (stage == 2)
 			{
+				Intro2();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
