@@ -858,11 +858,11 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	switch (stage)
 	{
 	case 1:
-		if (food == 609)
+		if (food == 609)//609
 			return 1;
 		break;
 	case 2:
-		if (food == 493)
+		if (food == 493)//493
 			return 1;
 		break;
 	case 3://현재까지 3스테이지 먹이수 체크
@@ -1219,6 +1219,8 @@ void initialization()
 {
 	system("cls");
 	enemyCount = 0;
+
+	food = 1;
 
 	startx = 0;                        //1-8
 	starty = 0;                        //1-9
