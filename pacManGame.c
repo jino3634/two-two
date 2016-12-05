@@ -512,6 +512,7 @@ void loadGame()
 
 	if (stage == 1)
 	{
+		PlaySound(TEXT("La Marseillaise.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 		for (i = 0; i < 50; i++)
 		{
 			for (j = 0; j < 50; j++)
@@ -522,6 +523,7 @@ void loadGame()
 	}
 	else if (stage == 2)
 	{
+		PlaySound(TEXT("America Theme.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 		for (i = 0; i < 50; i++)
 		{
 			for (j = 0; j < 50; j++)
@@ -1264,7 +1266,8 @@ void setmap()
 				{
 					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 					printf("■");
-					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); // 스테이지 1 텍스쳐
+					
 				}
 				else if (stage == 2)
 				{
@@ -1324,10 +1327,106 @@ void setmap()
 				break;
 			}
 		}
+		
 
 		printf("\n");
 	}
-	gotoxy(startx * 2, starty);                                                            //4-4
+	if (stage == 1)
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		gotoxy(101, 29);
+		printf("             %%%%");
+		gotoxy(101, 30);
+		printf("            *■*");
+		gotoxy(101, 31);
+		printf("            ■■");
+		gotoxy(101, 32);
+		printf("           .■■.");
+		gotoxy(101, 33);
+		printf("           :■■:");
+		gotoxy(101, 34);
+		printf("           =■■=");
+		gotoxy(101, 35);
+		printf("            ....");
+		gotoxy(101, 36);
+		printf("          #%%%%%%%%%%%%#");
+		gotoxy(101, 37);
+		printf("          .■■■.");
+		gotoxy(101, 38);
+		printf("          =■■■=");
+		gotoxy(101, 39);
+		printf("          ■■■■");
+		gotoxy(101, 40);
+		printf("         :■*  *■:");
+		gotoxy(101, 41);
+		printf("         ■@    ■@");
+		gotoxy(101, 42);
+		printf("        :**=    =**:");
+		gotoxy(101, 43);
+		printf("      :==:::====:::==+.");
+		gotoxy(101, 44);
+		printf("      *■■■■■■■%%.");
+		gotoxy(101, 45);
+		printf("     .■■■#++#■■■");
+		gotoxy(101, 46);
+		printf("    .■■@=      =■■@.");
+		gotoxy(101, 47);
+		printf("    ■■@:        :■■@");
+		gotoxy(101, 48);
+		printf("  .■■@%%          %%■■@.");
+		gotoxy(101, 49);
+		printf("  %%■■@*          *■■@%%");
+	}
+	else if (stage == 2)
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+		gotoxy(101, 29);
+		printf("     ■");
+		gotoxy(101, 30);
+		printf("    ■■");
+		gotoxy(101, 31);
+		printf("    ■■");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		gotoxy(111, 31);
+		printf("■ ■ ■");
+		gotoxy(101, 32);
+		printf("     ■    ■■■");
+		gotoxy(101, 33);
+		printf("     ■ ■■    ■■");
+		gotoxy(101, 34);
+		printf("     ■■■      ■■");
+		gotoxy(101, 35);
+		printf("      ■ ■      ■");
+		gotoxy(101, 36);
+		printf("      ■■■    ■");
+		gotoxy(101, 37);
+		printf("      ■■ ■■■");
+		gotoxy(101, 38);
+		printf("       ■   ■■■■■■");
+		gotoxy(101, 39);
+		printf("       ■ ■■    ■  ■");
+		gotoxy(101, 40);
+		printf("        ■■     ■   ■");
+		gotoxy(101, 41);
+		printf("        ■     ■ ■ ■");
+		gotoxy(101, 42);
+		printf("        ■ ■■   ■■");
+		gotoxy(101, 43);
+		printf("        ■■■   ■");
+		gotoxy(101, 44);
+		printf("        ■    ■■■");
+		gotoxy(101, 45);
+		printf("       ■  ■■  ■");
+		gotoxy(101, 46);
+		printf("       ■■■      ■");
+		gotoxy(101, 47);
+		printf("     ■■■■■■■■■");
+		gotoxy(101, 48);
+		printf("     ■ ............ ■");
+		gotoxy(101, 49);
+		printf("     ■■■■■■■■■");
+	}
+	gotoxy(startx * 2, starty);//4-4
 }
 
 void gotoxy(int x, int y)
@@ -2082,13 +2181,100 @@ void Intro2()
 		printf("■                                                                                                ■\n");
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 
+	
+
 	gotoxy(38, 15);
 	printf("봉재의 햄버거 여행기 2");
 	PlaySound(TEXT("Airplane sound.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
+	gotoxy(101, 2);
+	printf("        ■■    ■■");
+	gotoxy(101, 3);
+	printf("         ■■■■■");
+	gotoxy(101, 4);
+	printf("           ■■■");
+	gotoxy(101, 5);
+	printf("            ■■");
+	gotoxy(101, 6);
+	printf("            ■■");
+	gotoxy(101, 7);
+	printf("  +:        ■■        :+");
+	gotoxy(101, 8);
+	printf("  ■#+:     ■■     :+#■");
+	gotoxy(101, 9);
+	printf("  ■■■■  ■■  ■■■■");
+	gotoxy(101, 10);
+	printf("  +■■■■■■■■■■■+");
+	gotoxy(101, 11);
+	printf("    *■■■■■■■■■*");
+	gotoxy(101, 12);
+	printf("     #■■■■■■■■#");
+	gotoxy(101, 13);
+	printf("        %%■■■■■%%");
+	gotoxy(101, 14);
+	printf("          *■■■*");
+	gotoxy(101, 15);
+	printf("           ■■■");
+	gotoxy(101, 16);
+	printf("           ■■■");
+	gotoxy(101, 17);
+	printf("           ■■■");
+	gotoxy(101, 18);
+	printf("            ■■");
 	Sleep(5500);
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	gotoxy(38, 19);
 	printf("XXXX년 XX월 XX일 미국");
 	PlaySound(TEXT("America Theme.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); //BGM 추가해야함
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+	gotoxy(101, 31);
+	printf("     ■");
+	gotoxy(101, 32);
+	printf("    ■■");
+	gotoxy(101, 33);
+	printf("    ■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	gotoxy(111, 33);
+	printf("■ ■ ■");
+	gotoxy(101, 34);
+	printf("     ■    ■■■");
+	gotoxy(101, 35);
+	printf("     ■ ■■    ■■");
+	gotoxy(101, 36);
+	printf("     ■■■ ^  ^ ■■");
+	gotoxy(101, 37);
+	printf("      ■ ■      ■");
+	gotoxy(101, 38);
+	printf("      ■■■    ■");
+	gotoxy(101, 39);
+	printf("      ■■ ■■■");
+	gotoxy(101, 40);
+	printf("       ■   ■■■■■■");
+	gotoxy(101, 41);
+	printf("       ■ ■■    ■  ■");
+	gotoxy(101, 42);
+	printf("        ■■     ■   ■");
+	gotoxy(101, 43);
+	printf("        ■     ■ ■ ■");
+	gotoxy(101, 44);
+	printf("        ■ ■■   ■■");
+	gotoxy(101, 45);
+	printf("        ■■■   ■");
+	gotoxy(101, 46);
+	printf("        ■    ■■■");
+	gotoxy(101, 47);
+	printf("       ■  ■■  ■");
+	gotoxy(101, 48);
+	printf("       ■■■      ■");
+	gotoxy(101, 49);
+	printf("     ■■■■■■■■■");
+	gotoxy(101, 50);
+	printf("     ■ ............ ■");
+	gotoxy(101, 51);
+	printf("     ■■■■■■■■■");
+
 	Sleep(1000);
 	gotoxy(28, 23);
 	printf("봉재: 여기가 햄버거의 고장 미국이구나!!");
