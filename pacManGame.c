@@ -39,7 +39,7 @@ void gameStart(); // 게임 맵함수
 void Intro1(); // 인트로 1
 void Intro1_1(); // 인트로 1-1
 void Intro2(); // 인트로 2
-void Intro3(); 인트로 2
+void Intro3(); //인트로 3
 void goRank(int score);
 void printRank();
 void loadGame();
