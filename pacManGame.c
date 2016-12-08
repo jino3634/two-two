@@ -18,7 +18,7 @@ typedef struct rank {
 	struct rank *next;
 }RANK;
 
-void gotoxy(int x, int y);          
+void gotoxy(int x, int y); // gotoxy함수 정의       
 COORD getXY();
 COORD Cur;
 
@@ -31,14 +31,15 @@ void disappear();
 void save(int stage, int *scoreP);
 int load();
 
-void printTitle();
-void gameMenu();
-void gameMenuSelector();
-void Title();
-void gameStart();
-void Intro1();
-void Intro1_1();
-void Intro2();
+void printTitle(); //기본적인 타이틀 출력 (봉재의 햄버거 여행기)
+void gameMenu(); // 게임메뉴 출력함수
+void gameMenuSelector(); // 게임 메뉴 선택 함수
+void Title(); // printTitle, gameMenu, gameMenuSelector 함수 총괄, BGM
+void gameStart(); // 게임 맵함수
+void Intro1(); // 인트로 1
+void Intro1_1(); // 인트로 1-1
+void Intro2(); // 인트로 2
+void Intro3(); //인트로 3
 void goRank(int score);
 void printRank();
 void loadGame();
@@ -52,6 +53,8 @@ char empty[50][50];
  int stage = 1;
  int score;
  int *scoreP=&score;
+
+
 
  char startx = 0;                       
  char starty = 0;
@@ -352,6 +355,7 @@ void gameStart()
 			}
 			else if (stage == 3)
 			{
+				Intro3();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
@@ -405,6 +409,7 @@ void gameStart()
 			}
 			else if (stage == 3)
 			{
+				Intro3();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
@@ -456,6 +461,7 @@ void gameStart()
 			}
 			else if (stage == 3)
 			{
+				Intro3();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
@@ -513,6 +519,7 @@ void loadGame()
 
 	if (stage == 1)
 	{
+		PlaySound(TEXT("La Marseillaise.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 		for (i = 0; i < 50; i++)
 		{
 			for (j = 0; j < 50; j++)
@@ -523,6 +530,7 @@ void loadGame()
 	}
 	else if (stage == 2)
 	{
+		PlaySound(TEXT("America Theme.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 		for (i = 0; i < 50; i++)
 		{
 			for (j = 0; j < 50; j++)
@@ -622,6 +630,7 @@ void loadGame()
 			}
 			else if (stage == 3)
 			{
+				Intro3();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
@@ -675,6 +684,7 @@ void loadGame()
 			}
 			else if (stage == 3)
 			{
+				Intro3();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
@@ -726,6 +736,7 @@ void loadGame()
 			}
 			else if (stage == 3)
 			{
+				Intro3();
 				for (i = 0; i < 50; i++)
 				{
 					for (j = 0; j < 50; j++)
@@ -785,7 +796,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
 				food++;//먹이 먹은갯수 1 추가
-				score++;//스코어 추가
+				score+=10;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
 		}
@@ -800,7 +811,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
 				food++;//먹이 먹은갯수 1 추가
-				score++;//스코어 추가
+				score+=10;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
 		}
@@ -814,7 +825,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
 				food++;//먹이 먹은갯수 1 추가
-				score++;//스코어 추가
+				score+=10;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
 		}
@@ -828,7 +839,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			if (map[starty][startx] == 0)//현재 위치에 먹이가 있었던경우, 차차 함수화 ㅠ
 			{
 				food++;//먹이 먹은갯수 1 추가
-				score++;//스코어 추가
+				score+=10;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
 		}
@@ -847,9 +858,11 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 		main();
 		break;
 	}
-	gotoxy(110, 3);
-	printf("score : %d", score);//점수 출력
-	gotoxy(110, 5);
+	gotoxy(104, 3);
+	printf("먹은 재료의 개수 : %d", food);// 먹은 먹이 수 출력 => 남은 먹이 수로 교체하기
+	gotoxy(108, 5);
+	printf("여행 점수 : %d", score); // 여행점수 출력 => 먹이당 10점.
+	gotoxy(108, 7);
 	printf("Q : 게임 저장");//점수 출력
 	
 
@@ -1323,10 +1336,130 @@ void setmap()
 			}
 
 		}
+		
 
 		printf("\n");
 	}
-	gotoxy(startx * 2, starty);                                                            //4-4
+	if (stage == 1) // 스테이지 1 에서 에펠탑 출력
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		gotoxy(101, 29);
+		printf("             %%%%");
+		gotoxy(101, 30);
+		printf("            *■*");
+		gotoxy(101, 31);
+		printf("            ■■");
+		gotoxy(101, 32);
+		printf("           .■■.");
+		gotoxy(101, 33);
+		printf("           :■■:");
+		gotoxy(101, 34);
+		printf("           =■■=");
+		gotoxy(101, 35);
+		printf("            ....");
+		gotoxy(101, 36);
+		printf("          #%%%%%%%%%%%%#");
+		gotoxy(101, 37);
+		printf("          .■■■.");
+		gotoxy(101, 38);
+		printf("          =■■■=");
+		gotoxy(101, 39);
+		printf("          ■■■■");
+		gotoxy(101, 40);
+		printf("         :■*  *■:");
+		gotoxy(101, 41);
+		printf("         ■@    ■@");
+		gotoxy(101, 42);
+		printf("        :**=    =**:");
+		gotoxy(101, 43);
+		printf("      :==:::====:::==+.");
+		gotoxy(101, 44);
+		printf("      *■■■■■■■%%.");
+		gotoxy(101, 45);
+		printf("     .■■■#++#■■■");
+		gotoxy(101, 46);
+		printf("    .■■@=      =■■@.");
+		gotoxy(101, 47);
+		printf("    ■■@:        :■■@");
+		gotoxy(101, 48);
+		printf("  .■■@%%          %%■■@.");
+		gotoxy(101, 49);
+		printf("  %%■■@*          *■■@%%");
+	}
+	else if (stage == 2) // 스테이지2에서 자유의 여신상 출력
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+		gotoxy(101, 29);
+		printf("     ■");
+		gotoxy(101, 30);
+		printf("    ■■");
+		gotoxy(101, 31);
+		printf("    ■■");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		gotoxy(111, 31);
+		printf("■ ■ ■");
+		gotoxy(101, 32);
+		printf("     ■    ■■■");
+		gotoxy(101, 33);
+		printf("     ■ ■■    ■■");
+		gotoxy(101, 34);
+		printf("     ■■■      ■■");
+		gotoxy(101, 35);
+		printf("      ■ ■      ■");
+		gotoxy(101, 36);
+		printf("      ■■■    ■");
+		gotoxy(101, 37);
+		printf("      ■■ ■■■");
+		gotoxy(101, 38);
+		printf("       ■   ■■■■■■");
+		gotoxy(101, 39);
+		printf("       ■ ■■    ■  ■");
+		gotoxy(101, 40);
+		printf("        ■■     ■   ■");
+		gotoxy(101, 41);
+		printf("        ■     ■ ■ ■");
+		gotoxy(101, 42);
+		printf("        ■ ■■   ■■");
+		gotoxy(101, 43);
+		printf("        ■■■   ■");
+		gotoxy(101, 44);
+		printf("        ■    ■■■");
+		gotoxy(101, 45);
+		printf("       ■  ■■  ■");
+		gotoxy(101, 46);
+		printf("       ■■■      ■");
+		gotoxy(101, 47);
+		printf("     ■■■■■■■■■");
+		gotoxy(101, 48);
+		printf("     ■ .. Liberty.. ■");
+		gotoxy(101, 49);
+		printf("     ■■■■■■■■■");
+	}
+	else if (stage == 3) // 스테이지 3 에서 경복궁 출력
+	{
+		gotoxy(101, 40);
+		printf("         i!!!!!!!!i");
+		gotoxy(101, 41);
+		printf("      ,v$$$$$$$$$$$$v,");
+		gotoxy(101, 42);
+		printf("    U$$$$$$$$$$$$$$$$$$U");
+		gotoxy(101, 43);
+		printf("      `n$$$$$$$$$$$$n`");
+		gotoxy(101, 44);
+		printf("    ,xOM$$$$$$$$$$$$MOr,");
+		gotoxy(101, 45);
+		printf("      ,$W%%W%%&88&%%W%%W$,");
+		gotoxy(101, 46);
+		printf("    (JBWk#k##pp##k#kWBJ)");
+		gotoxy(101, 47);
+		printf("  ($$$$$$$$$Y  Y$$$$$$$$$)");
+		gotoxy(101, 48);
+		printf("[$$$$$$$$$$$|  |$$$$$$$$$$$]");
+		gotoxy(101, 49);
+		printf("?i!!!!!!!!!i^  ^i!!!!!!!!!i?");
+
+	}
+	gotoxy(startx * 2, starty);//4-4
 }
 
 void gotoxy(int x, int y)
@@ -2075,7 +2208,7 @@ void Intro2()
 {
 	int i;
 	//int count;
-
+	score = score + 10; // 스테이지 2 가면서 점수에 초기 먹이값 1의 점수 10점 추가
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 	for (i = 0; i < 50; i++)
 		printf("■                                                                                                ■\n");
@@ -2084,10 +2217,95 @@ void Intro2()
 	gotoxy(38, 15);
 	printf("봉재의 햄버거 여행기 2");
 	PlaySound(TEXT("Airplane sound.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
+	gotoxy(101, 2);
+	printf("        ■■    ■■");
+	gotoxy(101, 3);
+	printf("         ■■■■■");
+	gotoxy(101, 4);
+	printf("           ■■■");
+	gotoxy(101, 5);
+	printf("            ■■");
+	gotoxy(101, 6);
+	printf("            ■■");
+	gotoxy(101, 7);
+	printf("  +:        ■■        :+");
+	gotoxy(101, 8);
+	printf("  ■#+:     ■■     :+#■");
+	gotoxy(101, 9);
+	printf("  ■■■■  ■■  ■■■■");
+	gotoxy(101, 10);
+	printf("  +■■■■■■■■■■■+");
+	gotoxy(101, 11);
+	printf("    *■■■■■■■■■*");
+	gotoxy(101, 12);
+	printf("     #■■■■■■■■#");
+	gotoxy(101, 13);
+	printf("        %%■■■■■%%");
+	gotoxy(101, 14);
+	printf("          *■■■*");
+	gotoxy(101, 15);
+	printf("           ■■■");
+	gotoxy(101, 16);
+	printf("           ■■■");
+	gotoxy(101, 17);
+	printf("           ■■■");
+	gotoxy(101, 18);
+	printf("            ■■");
 	Sleep(5500);
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	gotoxy(38, 19);
 	printf("XXXX년 XX월 XX일 미국");
 	PlaySound(TEXT("America Theme.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); //BGM 추가해야함
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+	gotoxy(101, 31);
+	printf("     ■");
+	gotoxy(101, 32);
+	printf("    ■■");
+	gotoxy(101, 33);
+	printf("    ■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	gotoxy(111, 33);
+	printf("■ ■ ■");
+	gotoxy(101, 34);
+	printf("     ■    ■■■");
+	gotoxy(101, 35);
+	printf("     ■ ■■    ■■");
+	gotoxy(101, 36);
+	printf("     ■■■      ■■");
+	gotoxy(101, 37);
+	printf("      ■ ■      ■");
+	gotoxy(101, 38);
+	printf("      ■■■    ■");
+	gotoxy(101, 39);
+	printf("      ■■ ■■■");
+	gotoxy(101, 40);
+	printf("       ■   ■■■■■■");
+	gotoxy(101, 41);
+	printf("       ■ ■■    ■  ■");
+	gotoxy(101, 42);
+	printf("        ■■     ■   ■");
+	gotoxy(101, 43);
+	printf("        ■     ■ ■ ■");
+	gotoxy(101, 44);
+	printf("        ■ ■■   ■■");
+	gotoxy(101, 45);
+	printf("        ■■■   ■");
+	gotoxy(101, 46);
+	printf("        ■    ■■■");
+	gotoxy(101, 47);
+	printf("       ■  ■■  ■");
+	gotoxy(101, 48);
+	printf("       ■■■      ■");
+	gotoxy(101, 49);
+	printf("     ■■■■■■■■■");
+	gotoxy(101, 50);
+	printf("     ■ .. Liberty.. ■");
+	gotoxy(101, 51);
+	printf("     ■■■■■■■■■");
+
 	Sleep(1000);
 	gotoxy(28, 23);
 	printf("봉재: 여기가 햄버거의 고장 미국이구나!!");
@@ -2095,7 +2313,7 @@ void Intro2()
 	gotoxy(34, 25);
 	printf("최고의 소고기 패티를 위해 소고기를 구하자!");
 	Sleep(1000);
-	gotoxy(28, 27);
+	gotoxy(24, 27);
 	printf("목장주인: 네 이놈!! 어디서 소고기를 몰래 훔쳐가려고해!");
 	Sleep(1000);
 	gotoxy(28, 29);
@@ -2105,6 +2323,100 @@ void Intro2()
 	getchar();
 	system("cls");
 
+}
+
+void Intro3()
+{
+	int i;
+	//int count;
+	score = score + 10; // 스테이지 3 가면서 점수에 초기 먹이값 1의 점수 10점 추가
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(38, 15);
+	printf("봉재의 햄버거 여행기 3");
+	PlaySound(TEXT("Airplane sound.wav"), NULL, SND_FILENAME | SND_ASYNC); // 다른 나라로 가면서 나오는 비행기 효과음.
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
+	gotoxy(101, 2);
+	printf("        ■■    ■■");
+	gotoxy(101, 3);
+	printf("         ■■■■■");
+	gotoxy(101, 4);
+	printf("           ■■■");
+	gotoxy(101, 5);
+	printf("            ■■");
+	gotoxy(101, 6);
+	printf("            ■■");
+	gotoxy(101, 7);
+	printf("  +:        ■■        :+");
+	gotoxy(101, 8);
+	printf("  ■#+:     ■■     :+#■");
+	gotoxy(101, 9);
+	printf("  ■■■■  ■■  ■■■■");
+	gotoxy(101, 10);
+	printf("  +■■■■■■■■■■■+");
+	gotoxy(101, 11);
+	printf("    *■■■■■■■■■*");
+	gotoxy(101, 12);
+	printf("     #■■■■■■■■#");
+	gotoxy(101, 13);
+	printf("        %%■■■■■%%");
+	gotoxy(101, 14);
+	printf("          *■■■*");
+	gotoxy(101, 15);
+	printf("           ■■■");
+	gotoxy(101, 16);
+	printf("           ■■■");
+	gotoxy(101, 17);
+	printf("           ■■■");
+	gotoxy(101, 18);
+	printf("            ■■");
+	Sleep(5500);
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	gotoxy(36, 19);
+	printf("XXXX년 XX월 XX일 대한민국");
+	PlaySound(TEXT("wish of korea.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); //BGM 추가해야함
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	gotoxy(101, 42);
+	printf("         i!!!!!!!!i");
+	gotoxy(101, 43);
+	printf("      ,v$$$$$$$$$$$$v,");
+	gotoxy(101, 44);
+	printf("    U$$$$$$$$$$$$$$$$$$U");
+	gotoxy(101, 45);
+	printf("      `n$$$$$$$$$$$$n`");
+	gotoxy(101, 46);
+	printf("    ,xOM$$$$$$$$$$$$MOr,");
+	gotoxy(101, 47);
+	printf("      ,$W%%W%%&88&%%W%%W$,");
+	gotoxy(101, 48);
+	printf("    (JBWk#k##pp##k#kWBJ)");
+	gotoxy(101, 49);
+	printf("  ($$$$$$$$$Y  Y$$$$$$$$$)");
+	gotoxy(101, 50);
+	printf("[$$$$$$$$$$$|  |$$$$$$$$$$$]");
+	gotoxy(101, 51);
+	printf("?i!!!!!!!!!i^  ^i!!!!!!!!!i?");
+
+	Sleep(1000);
+	gotoxy(28, 23);
+	printf("봉재: 역시 싱싱한 야채는 우리나라에서 구해야겠지?");
+	Sleep(1000);
+	gotoxy(34, 25);
+	printf("토마토와 양상추를 구해볼까?");
+	Sleep(1000);
+	gotoxy(26, 27);
+	printf("도둑들: 싱싱한 토마토와 양상추는 우리가 가져가겠다!");
+	Sleep(1000);
+	gotoxy(28, 29);
+	printf("봉재: 도둑놈들에게 야채를 빼았길 순 없지! 얼른 구하자!");
+	gotoxy(50, 33);
+	printf("Enter 키를 눌러주세요.");
+	getchar();
+	system("cls");
 }
 
 void Title()
@@ -2373,8 +2685,9 @@ void save(int stage, int *scoreP) {
 
 int load()
 {
+	system("mode con:cols=130 lines=53");
 	FILE *fp;
-	int a;
+	int a,i;
 
 	fp = fopen("save.txt", "r");
 	if (fp == NULL)
@@ -2383,9 +2696,20 @@ int load()
 		Sleep(1000);
 		return 1;
 	}
+
 	fscanf(fp, "%d %d", &a,scoreP);
-	printf("스테이지 : %d \nscore : %d", a,*scoreP);
-	Sleep(1000);
+
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(45, 21);
+	printf("스테이지 : %d", a);
+	gotoxy(45, 22);
+	printf("score : %d", *scoreP);
+
+	Sleep(1500);
 
 
 	return a;
