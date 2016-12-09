@@ -1696,23 +1696,7 @@ void initialization()
 	enemyCount = 0;
 
 	food = 1;
-
-	startx = 0;                        //1-8
-	starty = 0;                        //1-9
-
-	u1x = 0;
-	u1y = 0;
-
-	u2x = 0;
-	u2y = 0;
-
-	u3x = 0;
-	u3y = 0;
-
-	u4x = 0;
-	u4y = 0;
-
-	
+	life = 3;
 }
 
 void setmap()
