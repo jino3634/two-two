@@ -40,6 +40,7 @@ void Intro1(); // 인트로 1
 void Intro1_1(); // 인트로 1-1
 void Intro2(); // 인트로 2
 void Intro3(); //인트로 3
+void Ending();
 void goRank(int score);
 void printRank();
 void loadGame();
@@ -1258,7 +1259,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	
 	int stFood1, stFood2, stFood3;
 	stFood1 = 609, stFood2 = 493, stFood3 = 632;
-	gotoxy(104, 3);
+	gotoxy(103, 3);
 	switch (stage)
 	{
 	case 1:
@@ -1272,11 +1273,56 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 		break;
 	}
 	
-	gotoxy(108, 5);
+	gotoxy(103, 5);
 	printf("여행 점수 : %d", score); // 여행점수 출력 => 먹이당 10점.
-	gotoxy(108, 7);
-	printf("봉재의 목숨 : %d", life);//목숨 수
-	gotoxy(108, 9);
+	if(life == 3) // 목숨
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		gotoxy(103, 7);
+		printf("봉재의 목숨 : ");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+		gotoxy(117, 7);
+		printf("♥ ♥ ♥ ♥");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	}
+	else if (life == 2)
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		gotoxy(117, 7);
+		printf("           ");
+		gotoxy(103, 7);
+		printf("봉재의 목숨 : ");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+		gotoxy(117, 7);
+		printf("♥ ♥ ♥");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	}
+	else if (life == 1)
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		gotoxy(117, 7);
+		printf("        ");
+		gotoxy(103, 7);
+		printf("봉재의 목숨 : ");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+		gotoxy(117, 7);
+		printf("♥ ♥");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	}
+	else
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+		gotoxy(117, 7);
+		printf("     ");
+		gotoxy(103, 7);
+		printf("봉재의 목숨 : ");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+		gotoxy(117, 7);
+		printf("♥");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	}
+	
+	gotoxy(108, 15);
 	printf("Q : 게임 저장");//점수 출력
 	
 
@@ -1312,7 +1358,6 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	else
 		return 3;//게임의 진행중
 }
-
 
 void enemyMove(char *x, char *y)//8방으로..
 {
@@ -1958,15 +2003,15 @@ void printTitle()
 	gotoxy(x, y); y += 1;
 	printf(" BO     NG");
 	gotoxy(x, y); y += 1;
-	printf(" BONGBONGB");
+	printf(" KANGBONGB"); // KANG
 	gotoxy(x, y); y += 1;
 	printf(" ON     GB");
 	gotoxy(x, y); y += 1;
-	printf(" ONGBONGBO");
+	printf(" ONCHAEGBO"); // CHAE
 	gotoxy(x, y); y += 1;
 	printf("    NGB");
 	gotoxy(x, y); y += 1;
-	printf("ONGBONGBONG");
+	printf("ONGYEONBONG"); // YEON
 	gotoxy(x, y); y += 1;
 	printf("  BONGBON");
 	gotoxy(x, y); y += 1;
@@ -1982,11 +2027,11 @@ void printTitle()
 	gotoxy(x, y); y += 1;
 	printf("AEJAE  JA EJ");
 	gotoxy(x, y); y += 1;
-	printf("AEJAE  JA EJ");
+	printf("AEJAE  JA NG"); //JANG
 	gotoxy(x, y); y += 1;
-	printf("   AE  JA EJ");
+	printf("   AE  ## SE"); //SE
 	gotoxy(x, y); y += 1;
-	printf("  AEJ  AEJAE");
+	printf("  AEJ  YEONG"); //YEONG
 	gotoxy(x, y); y += 1;
 	printf("  JAE  JA EJ");
 	gotoxy(x, y); y += 1;
@@ -2099,9 +2144,9 @@ void printTitle()
 	gotoxy(x, y); y += 1;
 	printf("Mo   M+ IM`");
 	gotoxy(x, y); y += 1;
-	printf("ME  .MM8#M`");
+	printf("ME  .##HAN`"); //HAN
 	gotoxy(x, y); y += 1;
-	printf("=M+:MM~~oM`");
+	printf("=M+JIN~~O#`"); //JIN - O
 	gotoxy(x, y); y += 1;
 	printf(" :8#+   iM`");
 	gotoxy(x, y); y += 1;
@@ -2138,13 +2183,13 @@ void printTitle()
 	gotoxy(x, y); y += 1;
 	printf("  =#M#EO+=;:.        ;8MMMMM");
 	gotoxy(x, y); y += 1;
-	printf("  MMMMMMMMMMMMMMMEOoMMMMMMMM");
+	printf("  MMMMMMMMMMMMMMJEOnGMMMMMMM"); //JEOnG
 	gotoxy(x, y); y += 1;
 	printf("   `Io#MMMMMMMMMMMMMMMMMMMo.");
 	gotoxy(x, y); y += 1;
-	printf("        .IoEMMMMMMMMMMMME");
+	printf("        .IoEMMMMMMMMMMMSE"); //SE
 	gotoxy(x, y); y += 1;
-	printf("          `iMMMMMMMMMMMMM.");
+	printf("          `iMMMMMMMMMMWON."); //WON
 	gotoxy(x, y); y += 1;
 	printf("  `     =MMMMMMMMMMMMMMMMM");
 	gotoxy(x, y); y += 1;
@@ -2671,7 +2716,7 @@ void Intro2()
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	gotoxy(38, 19);
 	printf("XXXX년 XX월 XX일 미국");
-	PlaySound(TEXT("America Theme.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); //BGM 추가해야함
+	PlaySound(TEXT("America Theme.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
 	gotoxy(101, 31);
@@ -2833,6 +2878,7 @@ void Intro3()
 	system("cls");
 }
 
+
 void Title()
 {
 	system("mode con:cols=130 lines=43"); // 타이틀화면에서만 130x43 크기로 지정. (깔끔해보이도록 조정)
@@ -2859,6 +2905,53 @@ void Title()
 		}
 
 	
+}
+
+void Ending() //엔딩 추가하기
+{
+	int i;
+	int x = 5, y = 5;
+
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); // 햄버거 텍스쳐
+	x = 32;  y = 4;
+	gotoxy(x, y); y += 1;
+	printf("           ■■■■■■");
+	gotoxy(x, y); y += 1;
+	printf("       ■■■■■■■■■■");
+	gotoxy(x, y); y += 1;
+	printf("     ■■■■■■■■■■■■");
+	gotoxy(x, y); y += 1;
+	printf("   ■■■■■■■■■■■■■■");
+	gotoxy(x, y); y += 1;
+	printf(" ■■■■■■■■■■■■■■■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+	gotoxy(x, y); y += 1;
+	printf("  ■■■■■■■■■■■■■■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+	gotoxy(x, y); y += 1;
+	printf("■■■■■■■■■■■■■■■■■");
+	gotoxy(x, y); y += 1;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+	printf("  ■■■■■■■■■■■■■■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	gotoxy(x, y); y += 1;
+	printf("■■■■■■■■■■■■■■■■■");
+	gotoxy(x, y); y += 1;
+	printf(" ■■■■■■■■■■■■■■■■");
+	gotoxy(x, y); y += 1;
+	printf("  ■■■■■■■■■■■■■■■");
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	gotoxy(38, 19);
+	printf("봉재의 햄버거 여행기 마지막 장");
+	PlaySound(TEXT("Spongebob.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
+
 }
 
 void printRank()//***2012244063 한진오***
