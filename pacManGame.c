@@ -208,7 +208,7 @@ char map_3[50][50] =
 	{ 1,1,1,1,1,1,1,1,0,1,1,1,6,6,6,6,6,6,6,6,6,6,6,6,0,0,6,6,6,6,6,6,6,6,6,6,6,6,1,1,1,0,1,1,1,1,1,1,1,1 },
 	{ 1,1,1,1,1,1,1,1,0,1,1,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,1,1,0,1,1,1,1,1,1,1,1 },
 	{ 1,1,1,1,1,1,1,1,0,1,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,6,6,6,1,0,1,1,1,1,1,1,1,1 },
-	{ 1,1,1,1,1,1,1,1,0,1,6,6,6,6,6,6,6,6,6,6,6,0,0,0,2,0,0,0,0,5,5,5,5,5,5,5,5,5,5,6,1,0,1,1,1,1,1,1,1,1 },//y 19 25
+	{ 1,1,1,1,1,1,1,1,0,1,6,6,6,6,6,6,6,6,6,6,6,0,0,0,2,0,0,0,0,5,5,5,5,5,5,5,5,5,5,6,1,0,1,1,1,1,1,1,1,1 },//y 19 24
 	{ 1,1,1,1,1,1,1,1,0,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,0,1,1,1,1,1,1,1,1 },
 	{ 1,1,1,1,1,1,1,1,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,1,1,1,1,1,1,1,1 },
 	{ 1,1,1,1,1,1,1,1,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,1,1,1,1,1,1,1,1 },
@@ -298,9 +298,49 @@ void gameStart()
 
 		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
 		{
-			printf("게임오버");
-			initialization();
-			break;// 탈출
+			if (life > 0)
+			{
+				switch (stage)
+				{
+				case 1:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 23;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				case 2:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 24;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				case 3:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 24;
+					starty = 19;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				}
+			}
+
+			else
+			{
+				printf("게임오버");
+				initialization();
+				break;// 탈출
+			}
 		}
 		//--------------------------------------------------------------------------------------------------유령의 움직임을 2번으로 설정함 //(스테이지별로 if문 걸어서 난이도 설정 가능..)
 		enemyMove(&u1x, &u1y);
@@ -322,9 +362,49 @@ void gameStart()
 
 		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
 		{
-			printf("게임오버");
-			initialization();
-			break;// 탈출
+			if (life > 0)
+			{
+				switch (stage)
+				{
+				case 1:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 23;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				case 2:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 24;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				case 3:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 24;
+					starty = 19;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				}
+			}
+
+			else
+			{
+				printf("게임오버");
+				initialization();
+				break;// 탈출
+			}
 		}
 
 
@@ -380,18 +460,34 @@ void gameStart()
 				switch (stage)
 				{
 				case 1:
-					gotoxy(startx, starty);
+					gotoxy(startx * 2, starty);
 					printf(" ");
+					
 					startx = 23;
 					starty = 25;
+					gotoxy(startx * 2, starty);
 					printf("◎");
 					life--;
 					break;
 				case 2:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				case 3:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 19;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				}
 			}
@@ -458,18 +554,34 @@ void gameStart()
 				switch (stage)
 				{
 				case 1:
-					gotoxy(startx, starty);
-					printf("  ");
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
 					startx = 23;
 					starty = 25;
+					gotoxy(startx * 2, starty);
 					printf("◎");
 					life--;
 					break;
 				case 2:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				case 3:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 19;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				}
 			}
@@ -534,18 +646,34 @@ void gameStart()
 				switch (stage)
 				{
 				case 1:
-					gotoxy(startx, starty);
+					gotoxy(startx * 2, starty);
 					printf(" ");
+
 					startx = 23;
 					starty = 25;
+					gotoxy(startx * 2, starty);
 					printf("◎");
 					life--;
 					break;
 				case 2:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				case 3:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 19;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				}
 			}
@@ -645,9 +773,48 @@ void loadGame()
 
 		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
 		{
-			printf("게임오버");
-			initialization();
-			break;// 탈출
+			if (life > 0)
+			{
+				switch (stage)
+				{
+				case 1:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 23;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				case 2:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 24;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				case 3:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 24;
+					starty = 19;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				}
+			}
+			else
+			{
+				printf("게임오버");
+				initialization();
+				break;// 탈출
+			}
 		}
 		//--------------------------------------------------------------------------------------------------유령의 움직임을 2번으로 설정함 //(스테이지별로 if문 걸어서 난이도 설정 가능..)
 		enemyMove(&u1x, &u1y);
@@ -669,9 +836,48 @@ void loadGame()
 
 		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
 		{
-			printf("게임오버");
-			initialization();
-			break;// 탈출
+			if (life > 0)
+			{
+				switch (stage)
+				{
+				case 1:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 23;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				case 2:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 24;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				case 3:
+					gotoxy(startx * 2, starty);
+					printf(" ");
+
+					startx = 24;
+					starty = 19;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
+					break;
+				}
+			}
+			else
+			{
+				printf("게임오버");
+				initialization();
+				break;// 탈출
+			}
 		}
 
 
@@ -727,22 +933,37 @@ void loadGame()
 				switch (stage)
 				{
 				case 1:
-					gotoxy(startx, starty);
+					gotoxy(startx * 2, starty);
 					printf(" ");
+
 					startx = 23;
 					starty = 25;
+					gotoxy(startx * 2, starty);
 					printf("◎");
 					life--;
 					break;
 				case 2:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				case 3:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 19;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				}
 			}
-
 			else
 			{
 				printf("게임오버");
@@ -805,18 +1026,34 @@ void loadGame()
 				switch (stage)
 				{
 				case 1:
-					gotoxy(startx, starty);
+					gotoxy(startx * 2, starty);
 					printf(" ");
+
 					startx = 23;
 					starty = 25;
+					gotoxy(startx * 2, starty);
 					printf("◎");
 					life--;
 					break;
 				case 2:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				case 3:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 19;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				}
 			}
@@ -881,18 +1118,34 @@ void loadGame()
 				switch (stage)
 				{
 				case 1:
-					gotoxy(startx, starty);
+					gotoxy(startx * 2, starty);
 					printf(" ");
+
 					startx = 23;
 					starty = 25;
+					gotoxy(startx * 2, starty);
 					printf("◎");
 					life--;
 					break;
 				case 2:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 25;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				case 3:
+					gotoxy(startx * 2, starty);
+					printf(" ");
 
+					startx = 24;
+					starty = 19;
+					gotoxy(startx * 2, starty);
+					printf("◎");
+					life--;
 					break;
 				}
 			}
@@ -1002,11 +1255,28 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 		main();
 		break;
 	}
+	
+	int stFood1, stFood2, stFood3;
+	stFood1 = 609, stFood2 = 493, stFood3 = 632;
 	gotoxy(104, 3);
-	printf("먹은 재료의 개수 : %d", food);// 먹은 먹이 수 출력 => 남은 먹이 수로 교체하기
+	switch (stage)
+	{
+	case 1:
+		printf("남은 재료의 개수 : %d", stFood1 - food);
+		break;
+	case 2:
+		printf("남은 재료의 개수 : %d", stFood2 - food);
+		break;
+	case 3:
+		printf("남은 재료의 개수 : %d", stFood3 - food);
+		break;
+	}
+	
 	gotoxy(108, 5);
 	printf("여행 점수 : %d", score); // 여행점수 출력 => 먹이당 10점.
 	gotoxy(108, 7);
+	printf("봉재의 목숨 : %d", life);//목숨 수
+	gotoxy(108, 9);
 	printf("Q : 게임 저장");//점수 출력
 	
 
