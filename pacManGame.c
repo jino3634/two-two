@@ -340,7 +340,7 @@ void gameStart()
 
 			else
 			{
-				printf("게임오버");
+				printf("GAME OVER...");
 				initialization();
 				break;// 탈출
 			}
@@ -404,7 +404,7 @@ void gameStart()
 
 			else
 			{
-				printf("게임오버");
+				printf("GAME OVER");
 				initialization();
 				break;// 탈출
 			}
@@ -419,7 +419,7 @@ void gameStart()
 
 		if (state == 1)
 		{
-			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
 
 			initialization();//이하 맵 셋팅;
@@ -498,7 +498,7 @@ void gameStart()
 
 			else
 			{
-				printf("게임오버");
+				printf("GAME OVER...");
 				initialization();
 				break;// 탈출
 			}
@@ -514,7 +514,7 @@ void gameStart()
 
 		if (state == 1)
 		{
-			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
 
 			initialization();//이하 맵 셋팅;
@@ -593,7 +593,7 @@ void gameStart()
 
 			else
 			{
-				printf("게임오버");
+				printf("GAME OVER...");
 				initialization();
 				break;// 탈출
 			}
@@ -607,7 +607,7 @@ void gameStart()
 
 		if (state == 1)
 		{
-			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
 
 			initialization();//이하 맵 셋팅;
@@ -686,7 +686,7 @@ void gameStart()
 			
 			else
 			{
-				printf("게임오버");
+				printf("GAME OVER...");
 				initialization();
 				break;// 탈출
 			}
@@ -817,7 +817,7 @@ void loadGame()
 			}
 			else
 			{
-				printf("게임오버");
+				printf("GAME OVER...");
 				initialization();
 				break;// 탈출
 			}
@@ -880,7 +880,7 @@ void loadGame()
 			}
 			else
 			{
-				printf("게임오버");
+				printf("GAME OVER...");
 				initialization();
 				break;// 탈출
 			}
@@ -895,7 +895,7 @@ void loadGame()
 
 		if (state == 1)
 		{
-			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
 
 			initialization();//이하 맵 셋팅;
@@ -973,7 +973,7 @@ void loadGame()
 			}
 			else
 			{
-				printf("게임오버");
+				printf("GAME OVER...");
 				initialization();
 				break;// 탈출
 			}
@@ -989,7 +989,7 @@ void loadGame()
 
 		if (state == 1)
 		{
-			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
 
 			initialization();//이하 맵 셋팅;
@@ -1068,7 +1068,7 @@ void loadGame()
 
 			else
 			{
-				printf("게임오버");
+				printf("GAME OVER...");
 				initialization();
 				break;// 탈출
 			}
@@ -1082,7 +1082,7 @@ void loadGame()
 
 		if (state == 1)
 		{
-			printf("게임 클리어!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
+			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
 
 			initialization();//이하 맵 셋팅;
@@ -1161,7 +1161,7 @@ void loadGame()
 
 			else
 			{
-				printf("게임오버");
+				printf("GAME OVER...");
 				initialization();
 				break;// 탈출
 			}
@@ -1504,16 +1504,16 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	}
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
-	gotoxy(106, 9);
+	gotoxy(107, 9);
 	printf("＠");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-	gotoxy(108, 9);
-	printf(": 캐릭터 좌우 반전");
+	gotoxy(109, 9);
+	printf(": 좌우키 반전");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
-	gotoxy(106, 11);
+	gotoxy(107, 11);
 	printf("●");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-	gotoxy(108, 11);
+	gotoxy(109, 11);
 	printf(": 도둑들 도망");
 	gotoxy(104, 12);
 	printf("======================");
@@ -3687,7 +3687,7 @@ void Intro3()
 	Sleep(5500);
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-	gotoxy(38, 19);
+	gotoxy(36, 19);
 	printf("XXXX년 XX월 XX일 대한민국");
 	PlaySound(TEXT("wish of korea.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -3775,8 +3775,6 @@ void Ending() //엔딩 추가하기
 	printf("   ■■■■■■■■■■■");
 	gotoxy(101, 33);
 	printf("   ■■■■■■■■■■■");
-	gotoxy(101, 46);
-	printf("   ■■■■■■■■■■■");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2); // 양상추
 	gotoxy(101, 7);
 	printf(" ■■■■■■■■■■■■■");
@@ -3784,16 +3782,12 @@ void Ending() //엔딩 추가하기
 	printf(" ■■■■■■■■■■■■■");
 	gotoxy(101, 34);
 	printf(" ■■■■■■■■■■■■■");
-	gotoxy(101, 47);
-	printf(" ■■■■■■■■■■■■■");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4); // 패티
 	gotoxy(101, 8);
 	printf("   ■■■■■■■■■■■");
 	gotoxy(101, 21);
 	printf("   ■■■■■■■■■■■");
 	gotoxy(101, 35);
-	printf("   ■■■■■■■■■■■");
-	gotoxy(101, 48);
 	printf("   ■■■■■■■■■■■");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	gotoxy(101, 1);
@@ -3845,22 +3839,39 @@ void Ending() //엔딩 추가하기
 	printf("  ■■■■■■■■■■■■");
 	gotoxy(101, 38);
 	printf("   ■■■■■■■■■■■");
-	gotoxy(101, 41);
-	printf("          ■■■■");
-	gotoxy(101, 42);
-	printf("      ■■■■■■■■");
-	gotoxy(101, 43);
-	printf("    ■■■■■■■■■■");
+	
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 	gotoxy(101, 44);
-	printf("  ■■■■■■■■■■■■");
+	printf("          ▶");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	gotoxy(101, 45);
-	printf(" ■■■■■■■■■■■■■");
+	printf("          l");
+	gotoxy(101, 46);
+	printf("    ■■■■■■");
+	gotoxy(101, 47);
+	printf("    ■■    ■■");
+	gotoxy(101, 48);
+	printf("  ■■■    ■■■");
 	gotoxy(101, 49);
-	printf(" ■■■■■■■■■■■■■");
+	printf("■■■■■■■■■■");
 	gotoxy(101, 50);
-	printf("  ■■■■■■■■■■■■");
+	printf("■■■■■■■■■■");
 	gotoxy(101, 51);
-	printf("   ■■■■■■■■■■■");
+	printf("■■■■■■■■■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+	gotoxy(125, 46);
+	printf("■");
+	gotoxy(123, 47);
+	printf("■■■");
+	gotoxy(123, 48);
+	printf("■■■");
+	gotoxy(123, 49);
+	printf("■■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
+	gotoxy(125, 50);
+	printf("■");
+	gotoxy(125, 51);
+	printf("■");
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	gotoxy(36, 15);
