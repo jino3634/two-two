@@ -200,7 +200,7 @@ char map_3[50][50] =
 	{ 1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1 },
 	{ 1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1 },
 	{ 1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1 },
-	{ 1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,4,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1 },
+	{ 1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,4,0,0,0,8,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1 },
 	{ 1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1 },
 	{ 1,1,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,1,1 },
 	{ 1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,6,6,6,6,6,6,6,6,6,6,6,6,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1 },
@@ -1378,7 +1378,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			return 1;
 		break;
 	case 3://현재까지 3스테이지 먹이수 체크
-		if (food == 10)//632
+		if (food == 100)//632
 			return 1;
 		break;
 	case 4:
@@ -1416,6 +1416,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					return;
 					//Sleep(200);//게임 전체의 진행속도
 				}
+				else if (map[*y][*x] == 8)
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
@@ -1438,6 +1449,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					printf("☆");
 					return;
 
+				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
 				}
 				else if (map[*y][*x] == 3)
 				{
@@ -1469,6 +1491,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					return;
 					//Sleep(200);//게임 전체의 진행속도
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
@@ -1498,6 +1531,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					return;
 
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
@@ -1515,17 +1559,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*y)--;;
+					(*y)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*y)--;;
+					(*y)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");                                                     //3-6
 
@@ -1544,17 +1599,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*y)--;;
+					(*y)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 					//Sleep(200);//게임 전체의 진행속도
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*y)--;;
+					(*y)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
@@ -1573,17 +1639,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*x)--;;
+					(*x)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 					//Sleep(200);//게임 전체의 진행속도
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*x)--;;
+					(*x)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
@@ -1596,17 +1673,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*y)--;;
+					(*y)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*y)--;;
+					(*y)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");                                                     //3-6
 
@@ -1624,17 +1712,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*x)--;;
+					(*x)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*x)--;;
+					(*x)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
@@ -1653,17 +1752,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*x)--;;
+					(*x)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 					//Sleep(200);//게임 전체의 진행속도
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*x)--;;
+					(*x)--;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
@@ -1681,6 +1791,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					printf("☆");
 					return;
 
+				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
 				}
 				else if (map[*y][*x] == 3)
 				{
@@ -1709,6 +1830,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					printf("☆");
 					return;
 					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
 				}
 				else if (map[*y][*x] == 3)
 				{
@@ -1742,6 +1874,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					return;
 					//Sleep(200);//게임 전체의 진행속도
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
@@ -1764,6 +1907,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					printf("☆");
 					return;
 
+				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
 				}
 				else if (map[*y][*x] == 3)
 				{
@@ -1795,6 +1949,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					return;
 					//Sleep(200);//게임 전체의 진행속도
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
@@ -1824,6 +1989,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					return;
 
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
@@ -1841,17 +2017,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*y)++;;
+					(*y)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*y)++;;
+					(*y)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");                                                     //3-6
 
@@ -1871,17 +2058,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*y)++;;
+					(*y)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 					//Sleep(200);//게임 전체의 진행속도
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*y)++;;
+					(*y)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
@@ -1900,17 +2098,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*x)++;;
+					(*x)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 					//Sleep(200);//게임 전체의 진행속도
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*x)++;;
+					(*x)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
@@ -1923,17 +2132,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*y)++;;
+					(*y)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*y)++;;
+					(*y)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");                                                     //3-6
 
@@ -1951,17 +2171,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*x)++;;
+					(*x)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*x)++;;
+					(*x)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
@@ -1980,17 +2211,28 @@ void enemyMove(char *x, char *y)//8방으로..
 				{
 					gotoxy(*x * 2, *y);
 					printf("·");
-					(*x)++;;
+					(*x)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
 					//Sleep(200);//게임 전체의 진행속도
 				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+				}
 				else if (map[*y][*x] == 3)
 				{
 					gotoxy(*x * 2, *y);
 					printf(" ");
-					(*x)++;;
+					(*x)++;
 					gotoxy(*x * 2, *y);                                    //3-5
 					printf("☆");
 					return;
@@ -2008,6 +2250,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					printf("☆");
 					return;
 
+				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
 				}
 				else if (map[*y][*x] == 3)
 				{
@@ -2036,6 +2289,17 @@ void enemyMove(char *x, char *y)//8방으로..
 					printf("☆");
 					return;
 					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 8)//몬스터에게 아이템 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+					printf("●");
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
 				}
 				else if (map[*y][*x] == 3)
 				{
