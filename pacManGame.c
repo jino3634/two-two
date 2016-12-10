@@ -51,6 +51,7 @@ char empty[50][50];
 
 
  int enemyCount = 0;
+ int enemySt = 1;
  int stage = 1;
  int score;
  int *scoreP=&score;
@@ -210,7 +211,7 @@ char map_3[50][50] =
 	{ 1,1,1,1,1,1,1,1,0,1,1,6,6,6,6,6,6,6,6,6,6,6,6,6,0,0,6,6,6,6,6,6,6,6,6,6,6,6,6,1,1,0,1,1,1,1,1,1,1,1 },
 	{ 1,1,1,1,1,1,1,1,0,1,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,6,6,6,1,0,1,1,1,1,1,1,1,1 },
 	{ 1,1,1,1,1,1,1,1,0,1,6,6,6,6,6,6,6,6,6,6,6,0,0,0,2,0,0,0,0,5,5,5,5,5,5,5,5,5,5,6,1,0,1,1,1,1,1,1,1,1 },//y 19 24
-	{ 1,1,1,1,1,1,1,1,0,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,5,5,5,5,0,1,1,1,1,1,1,1,1 },
+	{ 1,1,1,1,1,1,1,1,0,6,6,6,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0,0,8,5,5,5,5,5,5,5,5,5,5,5,5,0,1,1,1,1,1,1,1,1 },
 	{ 1,1,1,1,1,1,1,1,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,1,1,1,1,1,1,1,1 },
 	{ 1,1,1,1,1,1,1,1,0,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0,1,1,1,1,1,1,1,1 },
 	{ 1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1 },
@@ -1197,6 +1198,13 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 				score+=10;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
+			else if (map[starty][startx] == 8)//몬스터 도망 아이템 획득시
+			{
+				enemySt += 20;
+				food++;//먹이 먹은갯수 1 추가
+				score += 10;//스코어 추가
+				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
+			}
 		}
 		break;
 	case RIGHT:
@@ -1210,6 +1218,13 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			{
 				food++;//먹이 먹은갯수 1 추가
 				score+=10;//스코어 추가
+				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
+			}
+			else if (map[starty][startx] == 8)//몬스터 도망 아이템 획득시
+			{
+				enemySt += 20;
+				food++;//먹이 먹은갯수 1 추가
+				score += 10;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
 		}
@@ -1226,6 +1241,13 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 				score+=10;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
+			else if (map[starty][startx] == 8)//몬스터 도망 아이템 획득시
+			{
+				enemySt += 20;
+				food++;//먹이 먹은갯수 1 추가
+				score += 10;//스코어 추가
+				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
+			}
 		}
 		break;
 	case DOWN:
@@ -1238,6 +1260,13 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			{
 				food++;//먹이 먹은갯수 1 추가
 				score+=10;//스코어 추가
+				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
+			}
+			else if (map[starty][startx] == 8)//몬스터 도망 아이템 획득시
+			{
+				enemySt += 20;
+				food++;//먹이 먹은갯수 1 추가
+				score += 10;//스코어 추가
 				map[starty][startx] = 3;//먹이를 먹어, 빈길로 처리
 			}
 		}
@@ -1362,331 +1391,661 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 void enemyMove(char *x, char *y)//8방으로..
 {
 
-
-
-	if (startx > *x && starty > *y)//유저가 유령의 동남쪽에 있을경우
+	if (enemySt == 1)
 	{
-	
-		if (map[*y][*x + 1] != 1)//오른쪽 방향이 벽이 아닌경우     
+		if (startx > *x && starty > *y)//유저가 유령의 동남쪽에 있을경우
 		{
 
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+			if (map[*y][*x + 1] != 1)//오른쪽 방향이 벽이 아닌경우     
 			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*x)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-				//Sleep(200);//게임 전체의 진행속도
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
 			}
-			else if (map[*y][*x] == 3)
+			else if (map[*y + 1][*x] != 1)//아래로 이동 가능시
 			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*x)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");                                                     //3-6
+
+				}
+
+			}
+
+		}
+
+		else if (startx > *x && starty == *y)//유저가 유령의 동쪽에 있을경우
+		{
+
+			if (map[*y][*x + 1] != 1)//오른쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+		}
+
+		else if (startx > *x && starty < *y)//유저가 유령의 북동쪽에 있을경우
+		{
+
+			if (map[*y][*x + 1] != 1)//오른쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+			else if (map[*y - 1][*x] != 1)//위로 이동 가능시
+			{
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");                                                     //3-6
+
+				}
+
+			}
+
+		}
+
+		else if (startx == *x && starty < *y)//유저가 유령의 북쪽에 있을경우
+		{
+			if (map[*y - 1][*x] != 1)//위쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+		}
+
+		else if (startx < *x && starty < *y)//유저가 유령의 북서쪽에 있을경우
+		{
+
+			if (map[*y][*x - 1] != 1)//왼쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+			else if (map[*y - 1][*x] != 1)//위로 이동 가능시
+			{
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");                                                     //3-6
+
+				}
 
 			}
 		}
-		else if (map[*y + 1][*x] != 1)//아래로 이동 가능시
+
+		else if (startx < *x && starty == *y)//유저가 유령의 서쪽에 있을경우
 		{
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+			if (map[*y][*x - 1] != 1)//왼쪽 방향이 벽이 아닌경우     
 			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*y)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
 
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
 			}
-			else if (map[*y][*x] == 3)
-			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*y)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");                                                     //3-6
-
-			}
-
 		}
 
+		else if (startx < *x && starty > *y)//유저가 유령의 남서쪽에 있을경우
+		{
+
+			if (map[*y][*x - 1] != 1)//왼쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)--;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+			else if (map[*y + 1][*x] != 1)//아래로 이동 가능시
+			{
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");                                                     //3-6
+
+				}
+
+			}
+		}
+
+		else if (startx == *x && starty > *y)//유저가 유령의 남쪽에 있을경우
+		{
+			if (map[*y + 1][*x] != 1)//아래쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)++;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+		}
 	}
-
-	else if (startx > *x && starty == *y)//유저가 유령의 동쪽에 있을경우
+	//-------------------------------------이하 아이템 처리부-------------------------------------------
+	else if (enemySt > 1)
 	{
-		
-		if (map[*y][*x + 1] != 1)//오른쪽 방향이 벽이 아닌경우     
+		if (startx > *x && starty > *y)//유저가 유령의 동남쪽에 있을경우
 		{
 
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+			if (map[*y][*x - 1] != 1)//오른쪽 방향이 벽이 아닌경우     
 			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*x)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-				//Sleep(200);//게임 전체의 진행속도
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
 			}
-			else if (map[*y][*x] == 3)
+			else if (map[*y - 1][*x] != 1)//아래로 이동 가능시
 			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*x)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");                                                     //3-6
+
+				}
+
+			}
+
+		}
+
+		else if (startx > *x && starty == *y)//유저가 유령의 동쪽에 있을경우
+		{
+
+			if (map[*y][*x - 1] != 1)//오른쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+		}
+
+		else if (startx > *x && starty < *y)//유저가 유령의 북동쪽에 있을경우
+		{
+
+			if (map[*y][*x - 1] != 1)//오른쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+			else if (map[*y + 1][*x] != 1)//위로 이동 가능시
+			{
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");                                                     //3-6
+
+				}
+
+			}
+
+		}
+
+
+		else if (startx == *x && starty < *y)//유저가 유령의 북쪽에 있을경우
+		{
+			if (map[*y + 1][*x] != 1)//위쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+		}
+
+		else if (startx < *x && starty < *y)//유저가 유령의 북서쪽에 있을경우
+		{
+
+			if (map[*y][*x + 1] != 1)//왼쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+			else if (map[*y + 1][*x] != 1)//위로 이동 가능시
+			{
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");                                                     //3-6
+
+				}
 
 			}
 		}
+
+		else if (startx < *x && starty == *y)//유저가 유령의 서쪽에 있을경우
+		{
+			if (map[*y][*x + 1] != 1)//왼쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+		}
+
+		else if (startx < *x && starty > *y)//유저가 유령의 남서쪽에 있을경우
+		{
+
+			if (map[*y][*x + 1] != 1)//왼쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*x)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*x)++;;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+			else if (map[*y - 1][*x] != 1)//아래로 이동 가능시
+			{
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");                                                     //3-6
+
+				}
+
+			}
+		}
+
+		else if (startx == *x && starty > *y)//유저가 유령의 남쪽에 있을경우
+		{
+			if (map[*y - 1][*x] != 1)//아래쪽 방향이 벽이 아닌경우     
+			{
+
+				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
+				{
+					gotoxy(*x * 2, *y);
+					printf("·");
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+					//Sleep(200);//게임 전체의 진행속도
+				}
+				else if (map[*y][*x] == 3)
+				{
+					gotoxy(*x * 2, *y);
+					printf(" ");
+					(*y)--;
+					gotoxy(*x * 2, *y);                                    //3-5
+					printf("☆");
+					return;
+
+				}
+			}
+		}
+		enemySt--;
 	}
-
-	else if (startx > *x && starty < *y)//유저가 유령의 북동쪽에 있을경우
-	{
-
-		if (map[*y][*x + 1] != 1)//오른쪽 방향이 벽이 아닌경우     
-		{
-
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
-			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*x)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-				
-			}
-			else if (map[*y][*x] == 3)
-			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*x)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-
-			}
-		}
-		else if (map[*y - 1][*x] != 1)//위로 이동 가능시
-		{
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
-			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*y)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-
-			}
-			else if (map[*y][*x] == 3)
-			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*y)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");                                                     //3-6
-
-			}
-
-		}
-
-	}
-
-
-	else if (startx == *x && starty < *y)//유저가 유령의 북쪽에 있을경우
-	{
-		if (map[*y - 1][*x] != 1)//위쪽 방향이 벽이 아닌경우     
-		{
-
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
-			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*y)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-				//Sleep(200);//게임 전체의 진행속도
-			}
-			else if (map[*y][*x] == 3)
-			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*y)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-
-			}
-		}
-	}
-
-	else if (startx < *x && starty < *y)//유저가 유령의 북서쪽에 있을경우
-	{
-
-		if (map[*y][*x - 1] != 1)//왼쪽 방향이 벽이 아닌경우     
-		{
-
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
-			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*x)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-				//Sleep(200);//게임 전체의 진행속도
-			}
-			else if (map[*y][*x] == 3)
-			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*x)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-
-			}
-		}
-		else if (map[*y - 1][*x] != 1)//위로 이동 가능시
-		{
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
-			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*y)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-
-			}
-			else if (map[*y][*x] == 3)
-			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*y)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");                                                     //3-6
-
-			}
-
-		}
-	}
-
-	else if (startx < *x && starty == *y)//유저가 유령의 서쪽에 있을경우
-	{
-		if (map[*y][*x - 1] != 1)//왼쪽 방향이 벽이 아닌경우     
-		{
-
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
-			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*x)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-			
-			}
-			else if (map[*y][*x] == 3)
-			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*x)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-
-			}
-		}
-	}
-
-	else if (startx < *x && starty > *y)//유저가 유령의 남서쪽에 있을경우
-	{
-
-		if (map[*y][*x - 1] != 1)//왼쪽 방향이 벽이 아닌경우     
-		{
-
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
-			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*x)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-				//Sleep(200);//게임 전체의 진행속도
-			}
-			else if (map[*y][*x] == 3)
-			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*x)--;;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-
-			}
-		}
-		else if (map[*y + 1][*x] != 1)//아래로 이동 가능시
-		{
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
-			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*y)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-
-			}
-			else if (map[*y][*x] == 3)
-			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*y)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");                                                     //3-6
-
-			}
-
-		}
-	}
-
-	else if (startx == *x && starty > *y)//유저가 유령의 남쪽에 있을경우
-	{
-		if (map[*y + 1][*x] != 1)//아래쪽 방향이 벽이 아닌경우     
-		{
-
-			if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
-			{
-				gotoxy(*x * 2, *y);
-				printf("·");
-				(*y)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-				//Sleep(200);//게임 전체의 진행속도
-			}
-			else if (map[*y][*x] == 3)
-			{
-				gotoxy(*x * 2, *y);
-				printf(" ");
-				(*y)++;
-				gotoxy(*x * 2, *y);                                    //3-5
-				printf("☆");
-				return;
-
-			}
-		}
-	}
+	else
+		printf("아이템 에러");
 
 }
 
@@ -1694,6 +2053,7 @@ void initialization()
 {
 	system("cls");
 	enemyCount = 0;
+	enemySt = 1;
 
 	food = 1;
 	life = 3;
@@ -1774,6 +2134,11 @@ void setmap()
 				printf("■");
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 				map[i][j] = 1;//벽처리;
+				break;
+			case 8:
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+				printf("●");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 				break;
 
 			}
