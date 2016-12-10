@@ -41,6 +41,7 @@ void Intro1_1(); // 인트로 1-1
 void Intro2(); // 인트로 2
 void Intro3(); //인트로 3
 void Ending();
+void credit();
 void goRank(int score);
 void printRank();
 void loadGame();
@@ -450,7 +451,8 @@ void gameStart()
 
 			else if (stage == 4)
 			{
-				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				Ending();
+				credit();
 				break;//탈출
 			}
 
@@ -544,7 +546,8 @@ void gameStart()
 
 			else if (stage == 4)
 			{
-				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				Ending();
+				credit();
 				break;//탈출
 			}
 
@@ -636,7 +639,8 @@ void gameStart()
 
 			else if (stage == 4)
 			{
-				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				Ending();
+				credit();
 				break;//탈출
 			}
 
@@ -691,7 +695,6 @@ void gameStart()
 
 	}
 	system("cls");
-	Ending();
 	gotoxy(50, 20);
 	goRank(score);
 	score = 0;
@@ -924,7 +927,8 @@ void loadGame()
 
 			else if (stage == 4)
 			{
-				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				Ending();
+				credit();
 				break;//탈출
 			}
 
@@ -1017,7 +1021,8 @@ void loadGame()
 
 			else if (stage == 4)
 			{
-				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				Ending();
+				credit();
 				break;//탈출
 			}
 
@@ -1109,7 +1114,8 @@ void loadGame()
 
 			else if (stage == 4)
 			{
-				printf("축하드립니다 올클리어!");//차차 추가 할 예정 ㅠㅠ
+				Ending();
+				credit();
 				break;//탈출
 			}
 
@@ -1164,7 +1170,6 @@ void loadGame()
 
 	}
 	system("cls");
-	Ending();
 	gotoxy(50, 20);
 	goRank(score);
 	score = 0;
@@ -1373,7 +1378,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			return 1;
 		break;
 	case 3://현재까지 3스테이지 먹이수 체크
-		if (food == 100)//632
+		if (food == 10)//632
 			return 1;
 		break;
 	case 4:
@@ -3449,6 +3454,92 @@ void Ending() //엔딩 추가하기
 	printf("Enter 키를 눌러주세요.");
 	getchar();
 	system("cls");
+}
+
+void credit()
+{
+	int i;
+	int x = 5, y = 5;
+
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(45, 20);
+	printf("Map, load");
+	gotoxy(43, 25);
+	printf("Che Yon, Gang");
+
+	Sleep(3000);
+
+	system("cls");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(45, 20);
+	printf("Map, save");
+	gotoxy(43, 25);
+	printf("Se Yong, Jung");
+
+	Sleep(3000);
+
+	system("cls");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(43, 20);
+	printf("Interface, Design");
+	gotoxy(45, 25);
+	printf("Se Won, Jung");
+
+	Sleep(3000);
+
+	system("cls");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(45, 20);
+	printf("Logic");
+	gotoxy(43, 25);
+	printf("Jin O, Han");
+
+	Sleep(3000);
+
+	system("cls");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(45, 20);
+	printf("Game By");
+	gotoxy(38, 25);
+	printf("SunMoon University, 2016");
+
+	Sleep(3000);
+
+	system("cls");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+	for (i = 0; i < 50; i++)
+		printf("■                                                                                                ■\n");
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	gotoxy(45, 21);
+	printf("Thanks For Play");
+
+	Sleep(2000);
+
+	gotoxy(47, 23);
+	printf("Thank You!!!");
+
+	Sleep(3000);
 }
 
 void printRank()//***2012244063 한진오***
