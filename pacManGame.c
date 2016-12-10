@@ -3795,13 +3795,13 @@ void credit()
 		printf("¡á                                                                                                ¡á\n");
 	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
 
-	gotoxy(45, 21);
-	printf("Thanks For Play");
+	gotoxy(44, 21);
+	printf("Thanks For Playing");
 
-	Sleep(2000);
+	//Sleep(2000);
 
-	gotoxy(47, 23);
-	printf("Thank You!!!");
+	//gotoxy(47, 23);
+	//printf("Thank You!!!");
 
 	Sleep(3000);
 }
