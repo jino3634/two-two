@@ -747,6 +747,7 @@ void loadGame()
 	}
 	else if (stage == 3)
 	{
+		PlaySound(TEXT("wish of korea.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); // 로딩시 스테이지 3 브금 출력 12.11 수정
 		for (i = 0; i < 50; i++)
 		{
 			for (j = 0; j < 50; j++)
@@ -1333,7 +1334,6 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 				else if (map[starty][startx] == 7) // 좌우 반전
 				{
 					UserReverse += 20;
-					printf(" ");//좌표를 이동하기 전에 현재의 ◎를 지워줍니다.
 					startx++;
 					food++;//먹이 먹은갯수 1 추가
 					score += 10;//스코어 추가
@@ -1364,7 +1364,6 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 				else if (map[starty][startx] == 7) // 좌우 반전
 				{
 					UserReverse += 20;
-					printf(" ");//좌표를 이동하기 전에 현재의 ◎를 지워줍니다.
 					startx--;
 					food++;//먹이 먹은갯수 1 추가
 					score += 10;//스코어 추가
@@ -4559,6 +4558,100 @@ void printRank()//***2012244063 한진오***
 	for (i = 0; i < 50; i++)
 		printf("■                                                                                                ■\n");
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); // 토마토
+	gotoxy(101, 6);
+	printf("   ■■■■■■■■■■■");
+	gotoxy(101, 19);
+	printf("   ■■■■■■■■■■■");
+	gotoxy(101, 33);
+	printf("   ■■■■■■■■■■■");
+	gotoxy(101, 46);
+	printf("   ■■■■■■■■■■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2); // 양상추
+	gotoxy(101, 7);
+	printf(" ■■■■■■■■■■■■■");
+	gotoxy(101, 20);
+	printf(" ■■■■■■■■■■■■■");
+	gotoxy(101, 34);
+	printf(" ■■■■■■■■■■■■■");
+	gotoxy(101, 47);
+	printf(" ■■■■■■■■■■■■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4); // 패티
+	gotoxy(101, 8);
+	printf("   ■■■■■■■■■■■");
+	gotoxy(101, 21);
+	printf("   ■■■■■■■■■■■");
+	gotoxy(101, 35);
+	printf("   ■■■■■■■■■■■");
+	gotoxy(101, 48);
+	printf("   ■■■■■■■■■■■");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	gotoxy(101, 1);
+	printf("          ■■■■");
+	gotoxy(101, 2);
+	printf("      ■■■■■■■■");
+	gotoxy(101, 3);
+	printf("    ■■■■■■■■■■");
+	gotoxy(101, 4);
+	printf("  ■■■■■■■■■■■■");
+	gotoxy(101, 5);
+	printf(" ■■■■■■■■■■■■■");
+	gotoxy(101, 9);
+	printf(" ■■■■■■■■■■■■■");
+	gotoxy(101, 10);
+	printf("  ■■■■■■■■■■■■");
+	gotoxy(101, 11);
+	printf("   ■■■■■■■■■■■");
+	gotoxy(101, 14);
+	printf("          ■■■■");
+	gotoxy(101, 15);
+	printf("      ■■■■■■■■");
+	gotoxy(101, 16);
+	printf("    ■■■■■■■■■■");
+	gotoxy(101, 17);
+	printf("  ■■■■■■■■■■■■");
+	gotoxy(101, 18);
+	printf(" ■■■■■■■■■■■■■");
+	gotoxy(101, 22);
+	printf(" ■■■■■■■■■■■■■");
+	gotoxy(101, 23);
+	printf("  ■■■■■■■■■■■■");
+	gotoxy(101, 24);
+	printf("   ■■■■■■■■■■■");
+
+	gotoxy(101, 28);
+	printf("          ■■■■");
+	gotoxy(101, 29);
+	printf("      ■■■■■■■■");
+	gotoxy(101, 30);
+	printf("    ■■■■■■■■■■");
+	gotoxy(101, 31);
+	printf("  ■■■■■■■■■■■■");
+	gotoxy(101, 32);
+	printf(" ■■■■■■■■■■■■■");
+	gotoxy(101, 36);
+	printf(" ■■■■■■■■■■■■■");
+	gotoxy(101, 37);
+	printf("  ■■■■■■■■■■■■");
+	gotoxy(101, 38);
+	printf("   ■■■■■■■■■■■");
+	gotoxy(101, 41);
+	printf("          ■■■■");
+	gotoxy(101, 42);
+	printf("      ■■■■■■■■");
+	gotoxy(101, 43);
+	printf("    ■■■■■■■■■■");
+	gotoxy(101, 44);
+	printf("  ■■■■■■■■■■■■");
+	gotoxy(101, 45);
+	printf(" ■■■■■■■■■■■■■");
+	gotoxy(101, 49);
+	printf(" ■■■■■■■■■■■■■");
+	gotoxy(101, 50);
+	printf("  ■■■■■■■■■■■■");
+	gotoxy(101, 51);
+	printf("   ■■■■■■■■■■■");
 
 	fpin = fopen("source.txt", "r");
 
