@@ -4564,7 +4564,7 @@ void credit()
 	//gotoxy(47, 23);
 	//printf("Thank You!!!");
 
-	Sleep(5000);
+	Sleep(6000);
 }
 
 void printRank()//***2012244063 ÇÑÁø¿À***
