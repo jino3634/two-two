@@ -1559,7 +1559,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 void enemyMove(char *x, char *y)//8방으로..
 {
 
-	if (enemySt == 1)
+	if (enemySt == 1 || 5 || 6)
 	{
 		if (startx > *x && starty > *y)//유저가 유령의 동남쪽에 있을경우
 		{
@@ -1610,7 +1610,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 				}
 			}
-			else if (map[*y + 1][*x] != 1)//아래로 이동 가능시
+			else if (map[*y + 1][*x] != 1 || 5 || 6)//아래로 이동 가능시
 			{
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
 				{
@@ -1661,7 +1661,7 @@ void enemyMove(char *x, char *y)//8방으로..
 		else if (startx > *x && starty == *y)//유저가 유령의 동쪽에 있을경우
 		{
 
-			if (map[*y][*x + 1] != 1)//오른쪽 방향이 벽이 아닌경우     
+			if (map[*y][*x + 1] != 1 || 5 || 6)//오른쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -1712,7 +1712,7 @@ void enemyMove(char *x, char *y)//8방으로..
 		else if (startx > *x && starty < *y)//유저가 유령의 북동쪽에 있을경우
 		{
 
-			if (map[*y][*x + 1] != 1)//오른쪽 방향이 벽이 아닌경우     
+			if (map[*y][*x + 1] != 1 || 5 || 6)//오른쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -1758,7 +1758,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 				}
 			}
-			else if (map[*y - 1][*x] != 1)//위로 이동 가능시
+			else if (map[*y - 1][*x] != 1 || 5 || 6)//위로 이동 가능시
 			{
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
 				{
@@ -1808,7 +1808,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 		else if (startx == *x && starty < *y)//유저가 유령의 북쪽에 있을경우
 		{
-			if (map[*y - 1][*x] != 1)//위쪽 방향이 벽이 아닌경우     
+			if (map[*y - 1][*x] != 1 || 5 || 6)//위쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -1859,7 +1859,7 @@ void enemyMove(char *x, char *y)//8방으로..
 		else if (startx < *x && starty < *y)//유저가 유령의 북서쪽에 있을경우
 		{
 
-			if (map[*y][*x - 1] != 1)//왼쪽 방향이 벽이 아닌경우     
+			if (map[*y][*x - 1] != 1 || 5 || 6)//왼쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -1905,7 +1905,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 				}
 			}
-			else if (map[*y - 1][*x] != 1)//위로 이동 가능시
+			else if (map[*y - 1][*x] != 1 || 5 || 6)//위로 이동 가능시
 			{
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
 				{
@@ -1954,7 +1954,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 		else if (startx < *x && starty == *y)//유저가 유령의 서쪽에 있을경우
 		{
-			if (map[*y][*x - 1] != 1)//왼쪽 방향이 벽이 아닌경우     
+			if (map[*y][*x - 1] != 1 || 5 || 6)//왼쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -2005,7 +2005,7 @@ void enemyMove(char *x, char *y)//8방으로..
 		else if (startx < *x && starty > *y)//유저가 유령의 남서쪽에 있을경우
 		{
 
-			if (map[*y][*x - 1] != 1)//왼쪽 방향이 벽이 아닌경우     
+			if (map[*y][*x - 1] != 1 || 5 || 6)//왼쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -2100,7 +2100,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 		else if (startx == *x && starty > *y)//유저가 유령의 남쪽에 있을경우
 		{
-			if (map[*y + 1][*x] != 1)//아래쪽 방향이 벽이 아닌경우     
+			if (map[*y + 1][*x] != 1 || 5 || 6)//아래쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -2154,7 +2154,7 @@ void enemyMove(char *x, char *y)//8방으로..
 		if (startx > *x && starty > *y)//유저가 유령의 동남쪽에 있을경우
 		{
 
-			if (map[*y][*x - 1] != 1)//오른쪽 방향이 벽이 아닌경우     
+			if (map[*y][*x - 1] != 1 || 5 || 6)//오른쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -2200,7 +2200,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 				}
 			}
-			else if (map[*y - 1][*x] != 1)//아래로 이동 가능시
+			else if (map[*y - 1][*x] != 1 || 5 || 6)//아래로 이동 가능시
 			{
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
 				{
@@ -2251,7 +2251,7 @@ void enemyMove(char *x, char *y)//8방으로..
 		else if (startx > *x && starty == *y)//유저가 유령의 동쪽에 있을경우
 		{
 
-			if (map[*y][*x - 1] != 1)//오른쪽 방향이 벽이 아닌경우     
+			if (map[*y][*x - 1] != 1 || 5 || 6)//오른쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -2302,7 +2302,7 @@ void enemyMove(char *x, char *y)//8방으로..
 		else if (startx > *x && starty < *y)//유저가 유령의 북동쪽에 있을경우
 		{
 
-			if (map[*y][*x - 1] != 1)//오른쪽 방향이 벽이 아닌경우     
+			if (map[*y][*x - 1] != 1 || 5 || 6)//오른쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -2348,7 +2348,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 				}
 			}
-			else if (map[*y + 1][*x] != 1)//위로 이동 가능시
+			else if (map[*y + 1][*x] != 1 || 5 || 6)//위로 이동 가능시
 			{
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
 				{
@@ -2399,7 +2399,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 		else if (startx == *x && starty < *y)//유저가 유령의 북쪽에 있을경우
 		{
-			if (map[*y + 1][*x] != 1)//위쪽 방향이 벽이 아닌경우     
+			if (map[*y + 1][*x] != 1 || 5 || 6)//위쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -2450,7 +2450,7 @@ void enemyMove(char *x, char *y)//8방으로..
 		else if (startx < *x && starty < *y)//유저가 유령의 북서쪽에 있을경우
 		{
 
-			if (map[*y][*x + 1] != 1)//왼쪽 방향이 벽이 아닌경우     
+			if (map[*y][*x + 1] != 1 || 5 || 6)//왼쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -2496,7 +2496,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 				}
 			}
-			else if (map[*y + 1][*x] != 1)//위로 이동 가능시
+			else if (map[*y + 1][*x] != 1 || 5 || 6)//위로 이동 가능시
 			{
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
 				{
@@ -2545,7 +2545,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 		else if (startx < *x && starty == *y)//유저가 유령의 서쪽에 있을경우
 		{
-			if (map[*y][*x + 1] != 1)//왼쪽 방향이 벽이 아닌경우     
+			if (map[*y][*x + 1] != 1 || 5 || 6)//왼쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -2596,7 +2596,7 @@ void enemyMove(char *x, char *y)//8방으로..
 		else if (startx < *x && starty > *y)//유저가 유령의 남서쪽에 있을경우
 		{
 
-			if (map[*y][*x + 1] != 1)//왼쪽 방향이 벽이 아닌경우     
+			if (map[*y][*x + 1] != 1 || 5 || 6)//왼쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
@@ -2691,7 +2691,7 @@ void enemyMove(char *x, char *y)//8방으로..
 
 		else if (startx == *x && starty > *y)//유저가 유령의 남쪽에 있을경우
 		{
-			if (map[*y - 1][*x] != 1)//아래쪽 방향이 벽이 아닌경우     
+			if (map[*y - 1][*x] != 1 || 5 || 6)//아래쪽 방향이 벽이 아닌경우     
 			{
 
 				if (map[*y][*x] == 0)//몬스터에게 먹이 안먹이기..
