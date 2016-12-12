@@ -1531,7 +1531,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	switch (stage)
 	{
 	case 1:
-		if (food == 100)//609
+		if (food == 609)//609
 			return 1;
 		break;
 	case 2:
@@ -2755,7 +2755,7 @@ void initialization()
 }
 
 void setmap()
-{
+{//유령 움직일때마다 해당위치 4로 지정.
 	char ch;
 
 	initialization();
@@ -4964,6 +4964,26 @@ void save(int stage, int *scoreP, int mapArr[50][50]) {
 	fpin = fopen("save.txt", "w");
 
 	fprintf(fpin, "%d %d", stage,scoreP);
+
+	empty[starty][startx] = 2;
+	
+	if (enemyCount >= 1)
+	{
+		empty[u1y][u1x] = 4;
+		if (enemyCount >= 2)
+		{
+			empty[u2y][u2x] = 4;
+			if (enemyCount >= 3)
+			{
+				empty[u3y][u3x] = 4;
+				if (enemyCount == 4)
+				{
+					empty[u4y][u4x] = 4;
+				}
+			}
+		}
+	}
+	
 
 	for (i = 0; i < 50; i++)
 	{
