@@ -28,7 +28,7 @@ void enemyMove(char *x, char *y);
 
 void disappear(); //커서 화면 삭제
 
-void save(int stage, int *scoreP);
+void save(int stage, int *scoreP, int mapArr[50][50]);
 int load();
 
 void printTitle(); //기본적인 타이틀 출력 (봉재의 햄버거 여행기)
@@ -259,6 +259,8 @@ void main()
 
 void gameStart()
 {
+	life = 3;
+	food = 1;
 	map = &empty;
 	system("mode con:cols=130 lines=53");
 	initialization();//이하 맵 셋팅;
@@ -421,7 +423,8 @@ void gameStart()
 		{
 			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
-
+			life = 3;
+			food = 1;
 			initialization();//이하 맵 셋팅;
 			stage++;
 			if (stage == 2)
@@ -516,7 +519,8 @@ void gameStart()
 		{
 			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
-
+			life = 3;
+			food = 1;
 			initialization();//이하 맵 셋팅;
 			stage++;
 			if (stage == 2)
@@ -609,7 +613,8 @@ void gameStart()
 		{
 			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
-
+			life = 3;
+			food = 1;
 			initialization();//이하 맵 셋팅;
 			stage++;
 			if (stage == 2)
@@ -877,7 +882,8 @@ void loadGame()
 		{
 			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
-
+			life = 3;
+			food = 1;
 			initialization();//이하 맵 셋팅;
 			stage++;
 			if (stage == 2)
@@ -971,7 +977,8 @@ void loadGame()
 		{
 			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
-
+			life = 3;
+			food = 1;
 			initialization();//이하 맵 셋팅;
 			stage++;
 			if (stage == 2)
@@ -1064,7 +1071,8 @@ void loadGame()
 		{
 			printf("STAGE CLEAR!!!");//임의 프린트문으로 대체, 맵의 다양해짐에따라 추가 예정
 			Sleep(3000);
-
+			life = 3;
+			food = 1;
 			initialization();//이하 맵 셋팅;
 			stage++;
 			if (stage == 2)
@@ -1531,7 +1539,7 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	switch (stage)
 	{
 	case 1:
-		if (food == 609)//609
+		if (food == 309)//609
 			return 1;
 		break;
 	case 2:
@@ -2750,8 +2758,7 @@ void initialization()
 	enemyCount = 0;
 	enemySt = 1;
 
-	food = 1;
-	life = 3;
+	
 }
 
 void setmap()
@@ -4993,6 +5000,8 @@ void save(int stage, int *scoreP, int mapArr[50][50]) {
 
 		}
 	}
+	fprintf(fpin, " %d", life);
+	fprintf(fpin, " %d", food);
 	
 	Sleep(1000);
 	fclose(fpin);
@@ -5021,6 +5030,9 @@ int load()
 			fscanf(fp, "%d",&empty[i][j]);
 		}
 	}
+
+	fscanf(fp, " %d", &life);
+	fscanf(fp, " %d", &food);
 
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 	for (i = 0; i < 50; i++)
