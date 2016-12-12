@@ -720,41 +720,20 @@ void loadGame()
 	int state = 3;
 	int key = 1;//초기화를 안하면 if문에서 에러가 나므로, 아무 값이나 초기화.
 
-				
+	map = &empty;
 	int i, j;
 
 	if (stage == 1)
 	{
 		PlaySound(TEXT("La Marseillaise.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
-		for (i = 0; i < 50; i++)
-		{
-			for (j = 0; j < 50; j++)
-			{
-				empty[i][j] = map_1[i][j];
-			}
-		}
 	}
 	else if (stage == 2)
 	{
 		PlaySound(TEXT("America Theme.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
-		for (i = 0; i < 50; i++)
-		{
-			for (j = 0; j < 50; j++)
-			{
-				empty[i][j] = map_2[i][j];
-			}
-		}
 	}
 	else if (stage == 3)
 	{
 		PlaySound(TEXT("wish of korea.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); // 로딩시 스테이지 3 브금 출력 12.11 수정
-		for (i = 0; i < 50; i++)
-		{
-			for (j = 0; j < 50; j++)
-			{
-				empty[i][j] = map_3[i][j];
-			}
-		}
 	}
 
 	setmap();  //2-1
@@ -1310,14 +1289,14 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			}
 			break;//q
 		case 113:
-			save(stage, *scoreP);
+			save(stage, *scoreP, empty);
 			printf("게임이 저장되었습니다.");
 			Sleep(1000);
 			main();
 			break;
 
 		case 81://Q
-			save(stage, *scoreP);
+			save(stage, *scoreP, empty);
 			printf("게임이 저장되었습니다.");
 			Sleep(1000);
 			main();
@@ -1444,14 +1423,14 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 			}
 			break;
 		case 113:
-			save(stage, *scoreP);
+			save(stage, *scoreP, empty);
 			printf("게임이 저장되었습니다.");
 			Sleep(1000);
 			main();
 			break;
 
 		case 81://Q
-			save(stage, *scoreP);
+			save(stage, *scoreP, empty);
 			printf("게임이 저장되었습니다.");
 			Sleep(1000);
 			main();
@@ -1552,15 +1531,15 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	switch (stage)
 	{
 	case 1:
-		if (food == 609)//609
+		if (food == 100)//609
 			return 1;
 		break;
 	case 2:
-		if (food == 493)//493
+		if (food == 100)//493
 			return 1;
 		break;
 	case 3://현재까지 3스테이지 먹이수 체크
-		if (food == 632)//632
+		if (food == 100)//632
 			return 1;
 		break;
 	case 4:
@@ -2786,7 +2765,7 @@ void setmap()
 	{
 		for (int j = 0; j<50 / 1; j++)     //1은 char의 바이트 크기       //4-2
 		{
-			ch = map[i][j];
+			ch = empty[i][j];
 			switch (ch)                                                                        //4-3
 			{
 			case 0:
@@ -2799,7 +2778,7 @@ void setmap()
 				printf("◎");
 				startx = j;
 				starty = i;
-				map[i][j] = 3;//유저의 프린트 및, 좌표 설정이 끝나면, 그 위치를 3으로 바꿈(유령AI의 이동 용이)
+				empty[i][j] = 3;//유저의 프린트 및, 좌표 설정이 끝나면, 그 위치를 3으로 바꿈(유령AI의 이동 용이)
 				break;
 			case 3:
 				printf("  ");
@@ -2810,28 +2789,28 @@ void setmap()
 				{
 					u1x = j;
 					u1y = i;
-					map[i][j] = 0;//유령의 프린트 및, 좌표 설정이 끝나면, 그 위치를 0(먹이)로 바꿈
+					empty[i][j] = 0;//유령의 프린트 및, 좌표 설정이 끝나면, 그 위치를 0(먹이)로 바꿈
 					enemyCount++;
 				}
 				else if (enemyCount == 1)
 				{
 					u2x = j;
 					u2y = i;
-					map[i][j] = 0;
+					empty[i][j] = 0;
 					enemyCount++;
 				}
 				else if (enemyCount == 2)
 				{
 					u3x = j;
 					u3y = i;
-					map[i][j] = 0;
+					empty[i][j] = 0;
 					enemyCount++;
 				}
 				else if (enemyCount == 3)
 				{
 					u4x = j;
 					u4y = i;
-					map[i][j] = 0;
+					empty[i][j] = 0;
 					enemyCount++;
 				}
 				else
@@ -2842,14 +2821,12 @@ void setmap()
 			case 5:
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
 				printf("■");
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
-				map[i][j] = 1;
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 				break;
 			case 6:
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
 				printf("■");
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-				map[i][j] = 1;//벽처리;
 				break;
 				// ---------------이하 아이템
 			case 7:
@@ -4979,13 +4956,23 @@ COORD getXY() {
 	return Cur;
 }
 
-void save(int stage, int *scoreP) {
+void save(int stage, int *scoreP, int mapArr[50][50]) {
 	
 	FILE *fpin;
+	int i,j;
 
 	fpin = fopen("save.txt", "w");
 
 	fprintf(fpin, "%d %d", stage,scoreP);
+
+	for (i = 0; i < 50; i++)
+	{
+		for (j = 0; j < 50; j++)
+		{
+			fprintf(fpin," %d", empty[i][j]);
+
+		}
+	}
 	
 	Sleep(1000);
 	fclose(fpin);
@@ -4995,7 +4982,7 @@ int load()
 {
 	system("mode con:cols=130 lines=53");
 	FILE *fp;
-	int a,i;
+	int a,i,j;
 
 	fp = fopen("save.txt", "r");
 	if (fp == NULL)
@@ -5006,6 +4993,14 @@ int load()
 	}
 
 	fscanf(fp, "%d %d", &a,scoreP);
+
+	for (i = 0; i < 50; i++)
+	{
+		for (j = 0; j < 50; j++)
+		{
+			fscanf(fp, "%d",&empty[i][j]);
+		}
+	}
 
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 	for (i = 0; i < 50; i++)
