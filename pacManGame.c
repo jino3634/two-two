@@ -299,7 +299,7 @@ void gameStart()
 			}
 		}
 
-		if (startx == u1x&&starty == u1y && startx == u2x&&starty == u2y && startx == u3x&&starty == u3y && startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
+		if (startx == u1x && starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
 		{
 			if (life > 0)
 			{
@@ -363,7 +363,7 @@ void gameStart()
 			}
 		}
 
-		if (startx == u1x&&starty == u1y && startx == u2x&&starty == u2y && startx == u3x&&starty == u3y && startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
+		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
 		{
 			if (life > 0)
 			{
@@ -757,7 +757,7 @@ void loadGame()
 			}
 		}
 
-		if (startx == u1x&&starty == u1y && startx == u2x&&starty == u2y && startx == u3x&&starty == u3y && startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
+		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
 		{
 			if (life > 0)
 			{
@@ -820,7 +820,7 @@ void loadGame()
 			}
 		}
 
-		if (startx == u1x&&starty == u1y && startx == u2x&&starty == u2y && startx == u3x&&starty == u3y && startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
+		if (startx == u1x&&starty == u1y || startx == u2x&&starty == u2y || startx == u3x&&starty == u3y || startx == u4x&&starty == u4y)//유령[1,2,3,4 {(,)는 or}]에 닿을때
 		{
 			if (life > 0)
 			{
