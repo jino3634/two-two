@@ -1539,15 +1539,15 @@ int move(char ch)//캐릭터의 벽터치 및 먹이 먹이는 함수
 	switch (stage)
 	{
 	case 1:
-		if (food == 309)//609
+		if (food == 609)//609
 			return 1;
 		break;
 	case 2:
-		if (food == 100)//493
+		if (food == 493)//493
 			return 1;
 		break;
 	case 3://현재까지 3스테이지 먹이수 체크
-		if (food == 100)//632
+		if (food == 632)//632
 			return 1;
 		break;
 	case 4:
